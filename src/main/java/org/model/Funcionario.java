@@ -34,4 +34,28 @@ public class Funcionario extends Pessoa{
     public void setCargaTrabalho(ArrayList<String> cargaTrabalho) {
         this.cargaTrabalho = cargaTrabalho;
     }
+
+
+    public void cadastraCliente(Cliente cliente)
+    {
+        cliente.cadastrarPet();
+    }
+    public void adicionaProduto(Produto produto, Servico servico)
+    {
+        servico.adicionaProduto();
+    }
+    public void finalizaServico(Servico servico)
+    {
+        servico.finalizarServico();
+    }
+    public void removeProduto(Servico servico,Produto produto)
+    {
+        servico.removeProduto();
+    }
+    public void getValorTotal (Servico servico){
+        servico.getValorTotal();
+    }
+
+
+
 }

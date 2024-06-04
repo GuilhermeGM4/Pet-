@@ -47,7 +47,7 @@ public class Funcionario extends Pessoa{
         this.cargaTrabalho = novaCargaTrabalho;
     }
 
-
+    //Métodos Externos
     public void cadastraCliente(Cliente cliente)
     {
         cliente.cadastrarPet();
@@ -92,6 +92,24 @@ public class Funcionario extends Pessoa{
             throw new UnsupportedOperationException("Somente gerentes podem modificar a carga de trabalho de outros funcionários.");
         }
     }
+
+    //Métodos para Gerenciamento de Estoque
+
+    public void adicionaItemEstoque(Estoque estoque, Produto produto)
+    {
+        estoque.adicionarProduto(produto);
+    }
+
+    public void removeItemEstoque(Estoque estoque, Produto produto)
+    {
+        estoque.removerItem(produto);
+    }
+
+    public void pegarNomeItemEstoque(Estoque estoque, Produto produto)
+    {
+        estoque.pegarNomeProduto(produto);
+    }
+
 
 
 

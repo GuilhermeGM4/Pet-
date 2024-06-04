@@ -70,7 +70,7 @@ public class Funcionario extends Pessoa{
 
     // Métodos de Gerenciamento para um Gerente
     public void gerenciarModificacaoFuncao(Funcionario funcionario, Funcao novaFuncao) {
-        if (this.funcao.equals("GERENTE")) {
+        if (Funcao.GERENTE == funcionario.getFuncao()) {
             funcionario.modificaFuncao(novaFuncao);
         } else {
             throw new UnsupportedOperationException("Somente gerentes podem modificar a função de outros funcionários.");
@@ -78,7 +78,7 @@ public class Funcionario extends Pessoa{
     }
 
     public void gerenciarModificacaoDiasTrabalho(Funcionario funcionario, ArrayList<String> novosDiasTrabalho) {
-        if (this.funcao.equals("Gerente")) {
+        if (Funcao.GERENTE == funcionario.getFuncao()) {
             funcionario.modificaDiasTrabalho(novosDiasTrabalho);
         } else {
             throw new UnsupportedOperationException("Somente gerentes podem modificar os dias de trabalho de outros funcionários.");
@@ -86,7 +86,7 @@ public class Funcionario extends Pessoa{
     }
 
     public void gerenciarModificacaoCarga(Funcionario funcionario, ArrayList<String> novaCargaTrabalho) {
-        if (this.funcao.equals("Gerente")) {
+        if (Funcao.GERENTE == funcionario.getFuncao()) {
             funcionario.modificaCarga(novaCargaTrabalho);
         } else {
             throw new UnsupportedOperationException("Somente gerentes podem modificar a carga de trabalho de outros funcionários.");

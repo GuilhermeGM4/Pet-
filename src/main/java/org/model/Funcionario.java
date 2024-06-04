@@ -35,6 +35,18 @@ public class Funcionario extends Pessoa{
         this.cargaTrabalho = cargaTrabalho;
     }
 
+    public void modificaFuncao(Funcao novaFuncao) {
+        this.funcao = novaFuncao;
+    }
+
+    public void modificaDiasTrabalho(ArrayList<String> novosDiasTrabalho) {
+        this.diasTrabalho = new ArrayList<>(novosDiasTrabalho);
+    }
+
+    public void modificaCarga(ArrayList<String> novaCargaTrabalho) {
+        this.cargaTrabalho = novaCargaTrabalho;
+    }
+
 
     public void cadastraCliente(Cliente cliente)
     {
@@ -52,8 +64,33 @@ public class Funcionario extends Pessoa{
     {
         servico.removeProduto();
     }
-    public void getValorTotal (Servico servico){
-        servico.getValorTotal();
+    public float getValorTotal (Servico servico){
+        return servico.getValorTotal();
+    }
+
+    // Métodos de Gerenciamento para um Gerente
+    public void gerenciarModificacaoFuncao(Funcionario funcionario, Funcao novaFuncao) {
+        if (this.funcao.equals("GERENTE")) {
+            funcionario.modificaFuncao(novaFuncao);
+        } else {
+            throw new UnsupportedOperationException("Somente gerentes podem modificar a função de outros funcionários.");
+        }
+    }
+
+    public void gerenciarModificacaoDiasTrabalho(Funcionario funcionario, ArrayList<String> novosDiasTrabalho) {
+        if (this.funcao.equals("Gerente")) {
+            funcionario.modificaDiasTrabalho(novosDiasTrabalho);
+        } else {
+            throw new UnsupportedOperationException("Somente gerentes podem modificar os dias de trabalho de outros funcionários.");
+        }
+    }
+
+    public void gerenciarModificacaoCarga(Funcionario funcionario, ArrayList<String> novaCargaTrabalho) {
+        if (this.funcao.equals("Gerente")) {
+            funcionario.modificaCarga(novaCargaTrabalho);
+        } else {
+            throw new UnsupportedOperationException("Somente gerentes podem modificar a carga de trabalho de outros funcionários.");
+        }
     }
 
 

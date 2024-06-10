@@ -1,6 +1,7 @@
 package org.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Pet {
@@ -17,6 +18,8 @@ public class Pet {
         this.idade = idade;
         this.raca = raca;
         this.porte = porte;
+        responsaveis = new ArrayList<>();
+        observacoes = new HashMap<>();
     }
 
     public Pet(int id) {
@@ -72,6 +75,10 @@ public class Pet {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Raca getRaca() {
+        return raca;
     }
 
     public int getIdade() {

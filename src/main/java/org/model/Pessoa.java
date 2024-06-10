@@ -15,6 +15,14 @@ public abstract class Pessoa {
         this.telefone = telefone;
     }
 
+    public int getIdade() {
+        return idade;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
     public Pessoa(int id) {
         this.id = id;
     }

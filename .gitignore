@@ -23,5 +23,8 @@
 hs_err_pid*
 replay_pid*
 
-# Ignore .idea/dictionaries folder
-.idea/dictionaries/
+# Ignore .idea folder
+.idea
+
+# Ignore target folder
+target

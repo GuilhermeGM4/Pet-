@@ -10,9 +10,9 @@
    <children>
       <TableView fx:id="tableClients" layoutX="14.0" layoutY="14.0" prefHeight="570.0" prefWidth="549.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="236.0" AnchorPane.topAnchor="15.0">
         <columns>
-          <TableColumn fx:id="colunmName" editable="false" maxWidth="549.0" prefWidth="201.0" text="Nome" />
-          <TableColumn fx:id="colunmCpf" editable="false" maxWidth="549.0" minWidth="100.0" prefWidth="175.0" text="CPF" />
-            <TableColumn fx:id="colunmPhone" editable="false" maxWidth="549.0" minWidth="100.0" prefWidth="175.0" text="Telefone" />
+          <TableColumn fx:id="columnName" editable="false" maxWidth="549.0" prefWidth="201.0" text="Nome" />
+          <TableColumn fx:id="columnCpf" editable="false" maxWidth="549.0" minWidth="100.0" prefWidth="175.0" text="CPF" />
+            <TableColumn fx:id="columnPhone" editable="false" maxWidth="549.0" minWidth="100.0" prefWidth="175.0" text="Telefone" />
         </columns>
       </TableView>
       <Button fx:id="btnDetails" layoutX="613.0" layoutY="273.0" mnemonicParsing="false" onAction="#details" prefHeight="55.0" prefWidth="128.0" text="Detalhes" />

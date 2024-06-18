@@ -5,5 +5,8 @@ module PetPlus {
     requires javafx.graphics;
 
     opens org.controller.Cliente;
+
+    opens org.model;
+
     exports org.controller.Cliente;
 }

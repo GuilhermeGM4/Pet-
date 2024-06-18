@@ -25,4 +25,13 @@ public class ClienteDAO {
     public ArrayList<Cliente> getAllClients() {
         return clients;
     }
+
+    public Cliente getClienteByCpf(String cpf){
+        for (Cliente cliente : clients) {
+            if(cliente.getCpf().equals(cpf)){
+                return cliente;
+            }
+        }
+        return null;
+    }
 }

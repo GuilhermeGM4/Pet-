@@ -18,8 +18,14 @@ public class ClienteDAO {
         }
     }
 
-    public void cadastrar(Cliente client){
+    public String cadastrar(Cliente client){
+        for(Cliente c : clients){
+            if(c.getCpf().equals(client.getCpf())){
+                return "CPF já cadastrado";
+            }
+        }
         clients.add(client);
+        return "Cliente cadastrado com sucesso";
     }
 
     public ArrayList<Cliente> getAllClients() {

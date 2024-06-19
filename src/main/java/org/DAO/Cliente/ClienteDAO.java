@@ -12,6 +12,7 @@ public class ClienteDAO {
 //    String telefone;
     ArrayList<Cliente> clients = new ArrayList<Cliente>();
 
+    //TODO: implementar o banco de dados para retirar dados mockados
     public ClienteDAO() {
         for (int i = 0; i < 10; i++) {
             clients.add(new Cliente("nome" + i, "sexo" + i, i, "cpf" + i, "telefone" + i));
@@ -39,5 +40,9 @@ public class ClienteDAO {
             }
         }
         return null;
+    }
+
+    public String alterar(Cliente editedClient){
+        Cliente databaseClient = getClienteByCpf(editedClient.getCpf());
     }
 }

@@ -43,6 +43,13 @@ public class ClienteDAO {
     }
 
     public String alterar(Cliente editedClient){
-        Cliente databaseClient = getClienteByCpf(editedClient.getCpf());
+        for(Cliente c : clients){
+            if(c.getCpf().equals(editedClient.getCpf())){
+                clients.remove(c);
+                clients.add(editedClient);
+                return "Cliente alterado com sucesso";
+            }
+        }
+        return "Cliente não encontrado";
     }
 }

@@ -9,4 +9,6 @@ module PetPlus {
     opens org.model;
 
     exports org.controller.Cliente;
+
+    exports org.model;
 }

@@ -2,10 +2,11 @@ package org.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Servico {
     private int id;
-    private ArrayList<Produto> produtos;
+    private Map<String, Float> produtos;
     private float valorTotal;
     private Cliente cliente;
     private ArrayList<Funcionario> funcionarios;
@@ -28,7 +29,7 @@ public class Servico {
         finalizado = true;
     }
 
-    public ArrayList<Produto> getProdutos() {
+    public Map<String, Float> getProdutos() {
         return produtos;
     }
 

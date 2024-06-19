@@ -1,9 +1,10 @@
 package org.model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Estoque {
-    private ArrayList<Produto> produtos;
+    private Map<String, Float> produtos;
 
     public Estoque() {
     }

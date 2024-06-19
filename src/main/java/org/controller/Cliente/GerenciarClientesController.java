@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import org.DAO.Cliente.ClienteDAO;
 import org.model.Cliente;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -58,27 +59,35 @@ public class GerenciarClientesController extends Application {
 
     @FXML
     public void details() {
+        //TODO: mudar para a tela de detalhes do cliente selecionado
         System.out.println("Details");
     }
 
     @FXML
-    public void register() {
-        System.out.println("Register");
+    public void register() throws IOException {
+        //TODO: mudar para a tela de cadastro do cliente
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("adicionar_cliente.fxml"));
+        Pane graph = loader.load();
+
+        Scene scene = new Scene(graph, 800, 600);
+        Stage stage = (Stage) btnRegister.getScene().getWindow();
+        stage.setTitle("Adicionar Cliente");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     public void backwards() {
+        //TODO: voltar para a tela que chamou esta
         System.out.println("Backwards");
     }
     
     private void fillTable(){
-        System.out.println("Filling table: " + tableClients);
         ClienteDAO clienteDAO = new ClienteDAO();
         ArrayList<Cliente> clients = clienteDAO.getAllClients();
 
         clientsList.clear();
         clientsList.addAll(clients);
-
 
         columnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));

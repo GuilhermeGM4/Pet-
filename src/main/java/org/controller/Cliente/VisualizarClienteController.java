@@ -22,7 +22,7 @@ import org.model.Raca;
 import java.io.IOException;
 import java.util.Objects;
 
-public class VisualizarClienteController extends Application {
+public class VisualizarClienteController extends Application { //TODO: remover extends e start() para nao deixar a janela inicializavel
     @FXML
     private Button btnEditar;
 

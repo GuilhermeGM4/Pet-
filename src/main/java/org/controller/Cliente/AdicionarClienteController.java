@@ -12,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.UseCases.GerenciarCliente.CadastrarCliente;
+import org.Utils.ControllerUtil;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class AdicionarClienteController extends Application {
@@ -39,6 +41,9 @@ public class AdicionarClienteController extends Application {
 
     @FXML
     private TextField txtTelefone;
+
+    ControllerUtil controllerUtil = new ControllerUtil();
+
     @Override
     public void start(Stage stage) throws Exception {
         final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adicionar_cliente.fxml")));
@@ -54,9 +59,10 @@ public class AdicionarClienteController extends Application {
     }
 
     @FXML
-    void cancel(ActionEvent event) {
+    void cancel(ActionEvent event) throws IOException {
         //TODO: implementar de forma que volte para a tela de listagem de clientes
-        System.out.println("Cancel");
+        FXMLLoader loader = controllerUtil.generateLoader("Cliente", "gerenciar_clientes.fxml");
+        controllerUtil.changeScene(loader, event, "Gerenciar Clientes");
     }
 
     @FXML

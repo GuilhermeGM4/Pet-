@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.Utils.ControllerUtil;
+import org.controller.Cliente.VisualizarClienteController;
+import org.model.Cliente;
 import org.model.Pet;
 import org.model.Porte;
 import org.model.Raca;
@@ -52,6 +54,7 @@ public class VisualizarPetController extends Application{
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
     private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
+    private Cliente owner;
 //    private Pet pet;
 
     @Override
@@ -65,8 +68,7 @@ public class VisualizarPetController extends Application{
 
     @FXML
     public void initialize() {
-        System.out.println(pet.getNome());
-        choiceSexo.getItems().addAll("Masculino", "Feminino");
+        choiceSexo.getItems().addAll("Macho", "Fêmea");
         setDefaultValues();
         txtfNome.setEditable(true);
     }
@@ -77,8 +79,12 @@ public class VisualizarPetController extends Application{
     }
 
     @FXML
-    void backwards(ActionEvent event) {
-
+    void backwards(ActionEvent event) throws IOException {
+        FXMLLoader loader = controllerUtil.generateLoader("Cliente", "visualizar_cliente.fxml");
+        controllerUtil.load(loader);
+        VisualizarClienteController controller = (VisualizarClienteController) controllerUtil.getController();
+        controller.setClient(owner);
+        controllerUtil.changeScene(event, "Visualizar Cliente");
     }
 
     @FXML
@@ -89,6 +95,13 @@ public class VisualizarPetController extends Application{
     @FXML
     void handleEditionButton(ActionEvent event) {
 
+    }
+
+    private void changeEditableStatus(boolean status){
+        btnEditar.setDisable(!status);
+        txtfNome.setEditable(status);
+        txtfIdade.setEditable(status);
+        choiceSexo.setDisable(!status);
     }
 
     @FXML
@@ -103,9 +116,15 @@ public class VisualizarPetController extends Application{
         setDefaultValues();
     }
 
+    public void setOwner(Cliente cliente){
+        this.owner = cliente;
+    }
+
     private void setDefaultValues(){
         txtfNome.setText(pet.getNome());
         txtfIdade.setText(String.valueOf(pet.getIdade()));
+        txtfDono.setText(owner.getNome());
+
         listResponsaveis.getItems().addAll(pet.getResponsaveis());
     }
 

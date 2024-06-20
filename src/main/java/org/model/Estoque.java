@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Estoque {
     private Map<String, Float> produtos;
+    private Map<String, Integer> quantidadeNoEstoque;
 
     public Estoque() {
     }

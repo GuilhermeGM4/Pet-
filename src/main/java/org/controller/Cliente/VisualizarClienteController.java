@@ -115,8 +115,9 @@ public class VisualizarClienteController extends Application {
     }
 
     @FXML
-    void backwards(ActionEvent event) {
-        //TODO: implementar
+    void backwards(ActionEvent event) throws IOException {
+        FXMLLoader loader = controllerUtil.generateLoader("Cliente", "gerenciar_clientes.fxml");
+        controllerUtil.changeScene(loader, event, "Gerenciar Clientes");
     }
 
     @FXML

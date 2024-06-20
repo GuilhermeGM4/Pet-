@@ -63,7 +63,7 @@ public class GerenciarClientesController extends Application {
 
         clientsList.clear();
         clientsList.addAll(clients);
-        
+
         fillTable();
     }
 

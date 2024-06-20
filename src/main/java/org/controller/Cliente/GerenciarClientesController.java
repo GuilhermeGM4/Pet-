@@ -84,7 +84,7 @@ public class GerenciarClientesController extends Application {
     public void backwards(ActionEvent event) throws IOException {
         //TODO: voltar para a tela que chamou esta
         System.out.println("Backwards");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("path/to/menu"));
+        FXMLLoader loader = controllerUtil.generateLoader("Menu", "Menu");
         controllerUtil.changeScene(loader, event, "Menu Principal");
     }
     

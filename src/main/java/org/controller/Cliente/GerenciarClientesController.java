@@ -59,6 +59,11 @@ public class GerenciarClientesController extends Application {
 
     @FXML
     public void initialize() {
+        ArrayList<Cliente> clients = gerenciarCliente.getAllClients();
+
+        clientsList.clear();
+        clientsList.addAll(clients);
+        
         fillTable();
     }
 
@@ -89,11 +94,6 @@ public class GerenciarClientesController extends Application {
     }
     
     private void fillTable(){
-        ArrayList<Cliente> clients = gerenciarCliente.getAllClients();
-
-        clientsList.clear();
-        clientsList.addAll(clients);
-
         columnName.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<>("telefone"));

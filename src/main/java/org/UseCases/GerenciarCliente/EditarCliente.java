@@ -4,7 +4,6 @@ import org.DAO.Cliente.ClienteDAO;
 import org.model.Cliente;
 
 public class EditarCliente {
-    //TODO: retirar sets diretos em client e levar eles para o DAO
     ClienteDAO dao = new ClienteDAO();
     Cliente client = new Cliente("John Doe", "Masculino", 19, "12345678900", "12345678901");
 
@@ -22,11 +21,6 @@ public class EditarCliente {
         String phone = !newPhone.equals(client.getTelefone())? newPhone: client.getTelefone();
         Cliente editedClient = new Cliente(name, gender, age, client.getCpf(), phone);
         return dao.alterar(editedClient);
-//        client.setNome(name);
-//        client.setSexo(gender);
-//        client.setIdade(age);
-//        client.setTelefone(phone);
-//        return "Modificado com sucesso";
     }
 
     public void setClient(Cliente client){

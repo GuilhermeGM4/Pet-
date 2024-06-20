@@ -60,7 +60,6 @@ public class AdicionarClienteController extends Application {
 
     @FXML
     void cancel(ActionEvent event) throws IOException {
-        //TODO: implementar de forma que volte para a tela de listagem de clientes
         FXMLLoader loader = controllerUtil.generateLoader("Cliente", "gerenciar_clientes.fxml");
         controllerUtil.changeScene(loader, event, "Gerenciar Clientes");
     }

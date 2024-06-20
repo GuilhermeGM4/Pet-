@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,13 +26,18 @@ public class ControllerUtil {
         stage.close();
     }
 
-    public void openWindow(FXMLLoader loader, String title) throws IOException {
+    //APPLICATION_MODAL define que apenas a nova tela será interagivel no app inteiro enquanto estiver aberta, portanto
+    //apenas deixe isAppModel sendo true em avisos e/ou telas de confirmacao.
+    public void openWindow(FXMLLoader loader, String title, boolean isAppModal) throws IOException {
         Pane graph = loader.load();
         Scene scene = new Scene(graph);
 
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle(title);
+
+        if(isAppModal) stage.initModality(Modality.APPLICATION_MODAL);
+
         stage.showAndWait();
     }
 }

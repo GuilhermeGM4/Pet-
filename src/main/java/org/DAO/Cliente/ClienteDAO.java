@@ -67,6 +67,17 @@ public class ClienteDAO {
         return "Pet cadastrado com sucesso";
     }
 
+    public String removePet(Cliente owner, String petName){
+        for(Pet pet : owner.getPets()){
+            if(pet.getNome().equals(petName)){
+                owner.removerPet(pet);
+                alterar(owner);
+                return "Pet removido com sucesso";
+            }
+        }
+        return "Pet não encontrado";
+    }
+
     public String alterarPet(Pet editedPet, Cliente owner, String petName){
         for(Pet pet : owner.getPets()){
             if(pet.getNome().equals(petName)){

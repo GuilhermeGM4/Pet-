@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.UseCases.GerenciarCliente.EditarCliente;
 import org.UseCases.GerenciarCliente.EditarPet;
 import org.Utils.ControllerUtil;
 import org.controller.Cliente.VisualizarClienteController;
@@ -56,7 +55,7 @@ public class VisualizarPetController extends Application{
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
     private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
-    private Cliente owner = new Cliente("John Doe", "Masculino", 26, "12345678900", "12345678910");
+    private Cliente owner = new Cliente("Johny Doe", "Masculino", 26, "12345678900", "12345678910");
 //    private Pet pet;
 
     @Override
@@ -72,7 +71,6 @@ public class VisualizarPetController extends Application{
     public void initialize() {
         choiceSexo.getItems().addAll("Macho", "Fêmea");
         setDefaultValues();
-        txtfNome.setEditable(true);
         owner.cadastrarPet(pet);
     }
 
@@ -139,13 +137,14 @@ public class VisualizarPetController extends Application{
         listResponsaveis.getItems().remove(guardian);
     }
 
-    public void setPet(Pet pet) {
+    public void setPetAndOwner(Pet pet, Cliente owner) {
         this.pet = pet;
+        this.owner = owner;
+        owner.cadastrarPet(pet);
         setDefaultValues();
     }
 
     public void setOwner(Cliente cliente){
-        this.owner = cliente;
     }
 
     private void setDefaultValues(){

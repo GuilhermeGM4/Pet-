@@ -173,7 +173,7 @@ public class VisualizarClienteController extends Application { //TODO: remover e
         FXMLLoader loader = controllerUtil.generateLoader("Pet", "visualizar_pet.fxml");
         controllerUtil.load(loader);
         VisualizarPetController petController = (VisualizarPetController) controllerUtil.getController();
-        petController.setPet(pet);
+        petController.setPetAndOwner(pet, client);
         controllerUtil.changeScene(event, "Visualizar Pet");
     }
 

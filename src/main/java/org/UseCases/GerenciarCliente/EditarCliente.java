@@ -2,6 +2,9 @@ package org.UseCases.GerenciarCliente;
 
 import org.DAO.Cliente.ClienteDAO;
 import org.model.Cliente;
+import org.model.Pet;
+import org.model.Porte;
+import org.model.Raca;
 
 public class EditarCliente {
     ClienteDAO dao = new ClienteDAO();
@@ -21,6 +24,19 @@ public class EditarCliente {
         String phone = !newPhone.equals(client.getTelefone())? newPhone: client.getTelefone();
         Cliente editedClient = new Cliente(name, gender, age, client.getCpf(), phone);
         return dao.alterar(editedClient);
+    }
+
+    public String addPet(String name, String age, String breed, String size){
+        if(name.isEmpty() || age.isEmpty() || breed.isEmpty() || size.isEmpty()) return "Nenhum campo deve estar vazio.";
+        if(Integer.parseInt(age) < 0) return "Idade inválida";
+        if(!(size.equals("PEQUENO") || size.equals("MEDIO") || size.equals("GRANDE"))){
+            return "Porte inválido";
+        }
+
+        Porte petSize = Porte.valueOf(size);
+        Raca petBreed = Raca.valueOf(breed);
+        Pet pet = new Pet(name, Integer.parseInt(age), petBreed, petSize);
+        return dao.addPet(pet, client);
     }
 
     public void setClient(Cliente client){

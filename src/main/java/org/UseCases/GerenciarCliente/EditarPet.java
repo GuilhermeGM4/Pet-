@@ -28,6 +28,11 @@ public class EditarPet {
         return dao.addGuardian(pet, owner, newGuardianName);
     }
 
+    public String removeGuardian(String guardianName){
+        if(guardianName.isEmpty()) return "O nome do responsável não pode estar vazio.";
+        return dao.removeGuardian(pet, owner, guardianName);
+    }
+
     public void setPetAndOwner(Pet pet, Cliente owner){
         this.pet = pet;
         this.owner = owner;

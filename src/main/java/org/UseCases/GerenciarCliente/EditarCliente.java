@@ -39,6 +39,11 @@ public class EditarCliente {
         return dao.addPet(pet, client);
     }
 
+    public String removePet(String petName){
+        if(petName.isEmpty()) return "Nome do pet está vazio.";
+        return dao.removePet(client, petName);
+    }
+
     public void setClient(Cliente client){
         this.client = client;
     }

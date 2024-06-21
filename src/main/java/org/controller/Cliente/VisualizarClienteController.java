@@ -185,7 +185,8 @@ public class VisualizarClienteController extends Application { //TODO: remover e
 
     public void setClient(Cliente client){
         this.client = client;
+        petList.clear();
+        petList.addAll(client.getPets());
         setDefaultValues();
     }
-
 }

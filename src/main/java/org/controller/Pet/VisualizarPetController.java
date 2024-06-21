@@ -140,7 +140,6 @@ public class VisualizarPetController extends Application{
     public void setPetAndOwner(Pet pet, Cliente owner) {
         this.pet = pet;
         this.owner = owner;
-        owner.cadastrarPet(pet);
         setDefaultValues();
     }
 

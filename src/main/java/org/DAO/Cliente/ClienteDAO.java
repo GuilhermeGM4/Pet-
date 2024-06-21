@@ -77,4 +77,15 @@ public class ClienteDAO {
         owner.adicionaResponsavelPet(guardianName, pet);
         return "Responsável adicionado.";
     }
+
+    public String removeGuardian(Pet pet, Cliente owner, String guardianName){
+        for(String guardian : pet.getResponsaveis()){
+            if(guardian.equals(guardianName)){
+                pet.removeResponsavel(guardianName);
+                alterarPet(pet, owner, pet.getNome());
+                return "Responsável removido.";
+            }
+        }
+        return "Responsável não encontrado.";
+    }
 }

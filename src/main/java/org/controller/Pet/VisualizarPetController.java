@@ -53,10 +53,12 @@ public class VisualizarPetController extends Application{
     @FXML
     private TextField txtfNome;
 
+    @FXML
+    private TextField txtfResponsavel;
+
     private final ControllerUtil controllerUtil = new ControllerUtil();
     private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
     private Cliente owner = new Cliente("Johny Doe", "Masculino", 26, "12345678900", "12345678910");
-//    private Pet pet;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -76,7 +78,17 @@ public class VisualizarPetController extends Application{
 
     @FXML
     void addResponsavel(ActionEvent event) {
-
+        //TODO: adicionar novo TextField no fxml para o nome do responsavel
+        EditarPet editor = new EditarPet();
+        editor.setPetAndOwner(pet, owner);
+        String response = editor.addGuardian(txtfResponsavel.getText());
+        if(!response.equals("Responsável adicionado.")){
+            System.out.println(response);
+            return;
+        }
+        listResponsaveis.getItems().add(txtfResponsavel.getText());
+        txtfResponsavel.setText("");
+        System.out.println(response);
     }
 
     @FXML

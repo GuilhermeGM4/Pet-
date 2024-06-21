@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.UseCases.GerenciarCliente.EditarCliente;
 import org.Utils.ControllerUtil;
+import org.controller.Pet.AdicionarPetController;
 import org.controller.Pet.VisualizarPetController;
 import org.model.Cliente;
 import org.model.Pet;
@@ -110,8 +111,12 @@ public class VisualizarClienteController extends Application { //TODO: remover e
     }
 
     @FXML
-    void addPet(ActionEvent event) {
-        //TODO: implementar
+    void addPet(ActionEvent event) throws IOException {
+        FXMLLoader loader = controllerUtil.generateLoader("Pet", "adicionar_pet.fxml");
+        controllerUtil.load(loader);
+        AdicionarPetController controller = (AdicionarPetController) controllerUtil.getController();
+        controller.setOwner(client);
+        controllerUtil.changeScene(event, "Adicionar Pet");
     }
 
     @FXML

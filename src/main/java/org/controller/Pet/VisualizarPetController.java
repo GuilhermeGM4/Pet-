@@ -153,6 +153,7 @@ public class VisualizarPetController extends Application{
         }
         pet.removeResponsavel(guardian);
         listResponsaveis.getItems().remove(guardian);
+        System.out.println(response);
     }
 
     public void setPetAndOwner(Pet pet, Cliente owner) {

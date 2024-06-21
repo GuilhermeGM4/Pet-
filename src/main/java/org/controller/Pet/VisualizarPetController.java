@@ -144,19 +144,11 @@ public class VisualizarPetController extends Application{
         setDefaultValues();
     }
 
-    public void setOwner(Cliente cliente){
-    }
-
     private void setDefaultValues(){
         txtfNome.setText(pet.getNome());
         txtfIdade.setText(String.valueOf(pet.getIdade()));
         txtfDono.setText(owner.getNome());
 
         listResponsaveis.getItems().addAll(pet.getResponsaveis());
-    }
-
-    public void buildScene(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("visualizar_pet.fxml"));
-        controllerUtil.changeScene(loader, event, "Detalhes Pet");
     }
 }

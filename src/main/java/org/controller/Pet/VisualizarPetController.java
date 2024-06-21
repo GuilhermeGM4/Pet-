@@ -94,7 +94,14 @@ public class VisualizarPetController extends Application{
 
     @FXML
     void handleEditionButton(ActionEvent event) {
-
+        if(btnIniciaEdicao.getText().equals("Iniciar Edição")) {
+            btnIniciaEdicao.setText("Cancelar Edição");
+            changeEditableStatus(true);
+            return;
+        }
+        btnIniciaEdicao.setText("Iniciar Edição");
+        changeEditableStatus(false);
+        setDefaultValues();
     }
 
     private void changeEditableStatus(boolean status){

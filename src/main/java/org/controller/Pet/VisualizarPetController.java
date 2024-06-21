@@ -145,6 +145,12 @@ public class VisualizarPetController extends Application{
     @FXML
     void removeResponsavel(ActionEvent event) {
         String guardian = listResponsaveis.getSelectionModel().getSelectedItem();
+        EditarPet editor = new EditarPet();
+        String response = editor.removeGuardian(guardian);
+        if(response.equals("Responsável removido.")){
+            System.out.println(response);
+            return;
+        }
         pet.removeResponsavel(guardian);
         listResponsaveis.getItems().remove(guardian);
     }

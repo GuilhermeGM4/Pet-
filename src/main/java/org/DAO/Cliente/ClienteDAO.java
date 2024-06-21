@@ -56,6 +56,17 @@ public class ClienteDAO {
         return "Cliente não encontrado";
     }
 
+    public String addPet(Pet newPet, Cliente owner){
+        for(Pet pet : owner.getPets()){
+            if(pet.getNome().equals(newPet.getNome())){
+                return "Pet já cadastrado";
+            }
+        }
+        owner.cadastrarPet(newPet);
+        alterar(owner);
+        return "Pet cadastrado com sucesso";
+    }
+
     public String alterarPet(Pet editedPet, Cliente owner, String petName){
         for(Pet pet : owner.getPets()){
             if(pet.getNome().equals(petName)){

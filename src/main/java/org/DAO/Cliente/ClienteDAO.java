@@ -1,6 +1,7 @@
 package org.DAO.Cliente;
 
 import org.model.Cliente;
+import org.model.Pet;
 
 import java.util.ArrayList;
 
@@ -51,5 +52,16 @@ public class ClienteDAO {
             }
         }
         return "Cliente não encontrado";
+    }
+
+    public String alterarPet(Pet editedPet, Cliente owner){
+        for(Pet pet : owner.getPets()){
+            if(pet.getNome().equals(editedPet.getNome())){
+                owner.removerPet(pet);
+                owner.cadastrarPet(editedPet);
+                return "Pet alterado com sucesso";
+            }
+        }
+        return "Pet não encontrado";
     }
 }

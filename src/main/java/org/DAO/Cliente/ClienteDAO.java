@@ -44,9 +44,9 @@ public class ClienteDAO {
     }
 
     public String alterar(Cliente editedClient){
-        for(Cliente c : clients){
-            if(c.getCpf().equals(editedClient.getCpf())){
-                clients.remove(c);
+        for(Cliente client : clients){
+            if(client.getCpf().equals(editedClient.getCpf())){
+                clients.remove(client);
                 clients.add(editedClient);
                 return "Cliente alterado com sucesso";
             }
@@ -54,14 +54,25 @@ public class ClienteDAO {
         return "Cliente não encontrado";
     }
 
-    public String alterarPet(Pet editedPet, Cliente owner){
+    public String alterarPet(Pet editedPet, Cliente owner, String petName){
         for(Pet pet : owner.getPets()){
-            if(pet.getNome().equals(editedPet.getNome())){
-                owner.removerPet(pet);
-                owner.cadastrarPet(editedPet);
+            if(pet.getNome().equals(petName)){
+                pet.setNome(editedPet.getNome());
+                pet.setIdade(editedPet.getIdade());
+                pet.setPorte(editedPet.getPorte());
                 return "Pet alterado com sucesso";
             }
         }
         return "Pet não encontrado";
+    }
+
+    public String addGuardian(Pet pet, Cliente owner, String guardianName){
+        for(String guardian : pet.getResponsaveis()){
+            if(guardian.equals(guardianName)){
+                return "Responsável ja na lista.";
+            }
+        }
+        owner.adicionaResponsavelPet(guardianName, pet);
+        return "Guardiao adicionado.";
     }
 }

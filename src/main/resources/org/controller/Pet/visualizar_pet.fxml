@@ -11,14 +11,16 @@
    <children>
       <AnchorPane layoutX="15.0" layoutY="42.0" prefHeight="116.0" prefWidth="681.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="42.0">
          <children>
-            <Label layoutX="-2.0" layoutY="28.0" text="Nome" AnchorPane.leftAnchor="-2.0" AnchorPane.topAnchor="28.0" />
-            <Label text="Dono" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="77.0" />
+            <Label layoutX="-2.0" layoutY="28.0" text="Nome" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="28.0" />
+            <Label layoutX="-1.0" layoutY="77.0" text="Dono" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="77.0" />
             <Label layoutX="576.0" layoutY="28.0" text="Idade" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="28.0" />
             <Label layoutX="253.0" layoutY="28.0" text="Sexo" AnchorPane.rightAnchor="414.0" AnchorPane.topAnchor="28.0" />
             <TextField fx:id="txtfNome" editable="false" layoutX="41.0" layoutY="24.0" promptText="Nome" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="503.0" AnchorPane.topAnchor="24.0" />
             <TextField fx:id="txtfDono" editable="false" layoutX="41.0" layoutY="73.0" promptText="Dono" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="503.0" AnchorPane.topAnchor="73.0" />
             <TextField fx:id="txtfIdade" editable="false" layoutX="532.0" layoutY="24.0" promptText="Idade" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
             <ChoiceBox fx:id="choiceSexo" disable="true" layoutX="303.0" layoutY="24.0" prefWidth="150.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="24.0" />
+            <TextField layoutX="380.0" layoutY="73.0" promptText="Raça" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="241.0" />
+            <Label layoutX="331.0" layoutY="77.0" text="Raça" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="414.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="42.0" prefWidth="770.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
@@ -27,12 +29,13 @@
             <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" onAction="#edit" text="Editar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
-      <Label layoutX="368.0" layoutY="181.0" text="Responsáveis" AnchorPane.topAnchor="181.0" />
+      <Label layoutX="365.0" layoutY="181.0" prefHeight="17.0" prefWidth="79.0" text="Responsáveis" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="356.0" AnchorPane.topAnchor="181.0" />
       <Button fx:id="btnIniciaEdicao" layoutX="673.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleEditionButton" text="Iniciar Edição" textAlignment="RIGHT" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-      <AnchorPane layoutX="553.0" layoutY="300.0" prefHeight="136.0" prefWidth="197.0" AnchorPane.bottomAnchor="164.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="300.0">
+      <AnchorPane layoutX="553.0" layoutY="250.0" prefHeight="196.0" prefWidth="197.0" AnchorPane.bottomAnchor="154.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="250.0">
          <children>
-            <Button fx:id="btnAdicionar" layoutX="15.0" layoutY="68.0" mnemonicParsing="false" onAction="#addResponsavel" text="Adicionar Responsável" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="btnAdicionar" layoutX="13.0" layoutY="25.0" mnemonicParsing="false" onAction="#addResponsavel" text="Adicionar Responsável" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="25.0" />
             <Button fx:id="btnRemover" layoutX="16.0" layoutY="128.0" mnemonicParsing="false" onAction="#removeResponsavel" text="Remover Responsável" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" />
+            <TextField fx:id="txtfResponsavel" layoutX="23.0" layoutY="2.0" promptText="Novo Responsável" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <ListView fx:id="listResponsaveis" layoutX="247.0" layoutY="207.0" prefHeight="378.0" prefWidth="306.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="247.0" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="207.0" />

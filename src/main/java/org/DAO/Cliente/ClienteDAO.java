@@ -46,8 +46,10 @@ public class ClienteDAO {
     public String alterar(Cliente editedClient){
         for(Cliente client : clients){
             if(client.getCpf().equals(editedClient.getCpf())){
-                clients.remove(client);
-                clients.add(editedClient);
+                client.setNome(editedClient.getNome());
+                client.setSexo(editedClient.getSexo());
+                client.setIdade(editedClient.getIdade());
+                client.setTelefone(editedClient.getTelefone());
                 return "Cliente alterado com sucesso";
             }
         }

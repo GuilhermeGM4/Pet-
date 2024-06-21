@@ -11,6 +11,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.UseCases.GerenciarCliente.EditarCliente;
+import org.UseCases.GerenciarCliente.EditarPet;
 import org.Utils.ControllerUtil;
 import org.controller.Cliente.VisualizarClienteController;
 import org.model.Cliente;
@@ -54,7 +56,7 @@ public class VisualizarPetController extends Application{
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
     private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
-    private Cliente owner;
+    private Cliente owner = new Cliente("John Doe", "Masculino", 26, "12345678900", "12345678910");
 //    private Pet pet;
 
     @Override
@@ -71,6 +73,7 @@ public class VisualizarPetController extends Application{
         choiceSexo.getItems().addAll("Macho", "Fêmea");
         setDefaultValues();
         txtfNome.setEditable(true);
+        owner.cadastrarPet(pet);
     }
 
     @FXML
@@ -89,7 +92,25 @@ public class VisualizarPetController extends Application{
 
     @FXML
     void edit(ActionEvent event) {
-
+        EditarPet editor = new EditarPet();
+        editor.setPetAndOwner(pet, owner);
+        String result = editor.editar(
+                txtfNome.getText(),
+                txtfIdade.getText(),
+                choiceSexo.getValue(),
+                pet.getPorte()
+        );
+        //TODO: adicionar um text na janela para mostrar mensagens do sistema e implementar
+        if(!result.equals("Pet alterado com sucesso")){
+            setDefaultValues();
+        }
+        System.out.println(result);
+        btnIniciaEdicao.setText("Iniciar Edição");
+        changeEditableStatus(false);
+        if(result.equals("Pet alterado com sucesso")){
+            pet.setNome(txtfNome.getText());
+            pet.setIdade(Integer.parseInt(txtfIdade.getText()));
+        }
     }
 
     @FXML

@@ -75,6 +75,6 @@ public class ClienteDAO {
             }
         }
         owner.adicionaResponsavelPet(guardianName, pet);
-        return "Responsável adicionado adicionado.";
+        return "Responsável adicionado.";
     }
 }

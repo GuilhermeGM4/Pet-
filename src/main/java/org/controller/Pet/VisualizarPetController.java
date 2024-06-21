@@ -78,7 +78,6 @@ public class VisualizarPetController extends Application{
 
     @FXML
     void addResponsavel(ActionEvent event) {
-        //TODO: adicionar novo TextField no fxml para o nome do responsavel
         EditarPet editor = new EditarPet();
         editor.setPetAndOwner(pet, owner);
         String response = editor.addGuardian(txtfResponsavel.getText());
@@ -87,6 +86,7 @@ public class VisualizarPetController extends Application{
             return;
         }
         listResponsaveis.getItems().add(txtfResponsavel.getText());
+        setDefaultValues();
         txtfResponsavel.setText("");
         System.out.println(response);
     }

@@ -64,7 +64,7 @@ public class ClienteDAO {
         }
         owner.cadastrarPet(newPet);
         alterar(owner);
-        return "Pet cadastrado com sucesso";
+        return "Pet cadastrado com sucesso.";
     }
 
     public String removePet(Cliente owner, String petName){

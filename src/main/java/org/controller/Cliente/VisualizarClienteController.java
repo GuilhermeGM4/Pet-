@@ -160,6 +160,18 @@ public class VisualizarClienteController extends Application { //TODO: remover e
     @FXML
     void removePet(ActionEvent event) {
         //TODO: implementar
+        Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
+        Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
+                .stream()
+                .findFirst()
+                .orElse(null);
+        if(pet == null){
+            System.out.println("Error getting pet.");
+            return;
+        }
+        client.removerPet(pet);
+        petList.remove(pet);
+        populateTable();
     }
 
     @FXML

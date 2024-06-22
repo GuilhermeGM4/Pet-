@@ -72,13 +72,13 @@ public class AdicionarPetController {
         EditarCliente editor = new EditarCliente();
         editor.setClient(owner);
 
-        String result = editor.addPet(txtNome.getText(),
+        String result = editor.addPet(
+                txtNome.getText(),
                 txtIdade.getText(),
                 choiceRaca.getSelectionModel().getSelectedItem(),
                 choicePorte.getSelectionModel().getSelectedItem());
 
         txtMessage.setText(result);
-        return;
     }
 
     public void setOwner(Cliente owner) {

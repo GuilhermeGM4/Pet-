@@ -36,7 +36,9 @@ public class EditarCliente {
         Porte petSize = Porte.valueOf(size);
         Raca petBreed = Raca.valueOf(breed);
         Pet pet = new Pet(name, Integer.parseInt(age), petBreed, petSize);
-        return dao.addPet(pet, client);
+        String message = dao.addPet(pet, client);
+        if(message.equals("Cliente alterado com sucesso.")) return "Pet adicionado com sucesso.";
+        return message;
     }
 
     public String removePet(String petName){

@@ -66,8 +66,7 @@ public class ClienteDAO implements ClienteDAOInterface {
             }
         }
         owner.cadastrarPet(newPet);
-        alterar(owner);
-        return "Pet cadastrado com sucesso.";
+        return alterar(owner);
     }
 
     public String removePet(Cliente owner, String petName){

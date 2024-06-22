@@ -33,6 +33,12 @@ public class EditarPet {
         return dao.removeGuardian(pet, owner, guardianName);
     }
 
+    public String addObservacao(String title, String observacao){
+        if(title.isEmpty() || observacao.isEmpty()) return "Nenhum campo deve estar vazio.";
+        owner.adicionaObservacaoPet(title, observacao, pet);
+        return dao.alterarPet(pet, owner, pet.getNome());
+    }
+
     public void setPetAndOwner(Pet pet, Cliente owner){
         this.pet = pet;
         this.owner = owner;

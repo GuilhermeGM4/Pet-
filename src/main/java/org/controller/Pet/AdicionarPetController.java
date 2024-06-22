@@ -10,8 +10,12 @@ import javafx.scene.text.Text;
 import org.UseCases.GerenciarCliente.EditarCliente;
 import org.Utils.ControllerUtil;
 import org.model.Cliente;
+import org.model.Porte;
+import org.model.Raca;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class AdicionarPetController {
 
@@ -43,9 +47,20 @@ public class AdicionarPetController {
     private Cliente owner = new Cliente("Johny Doe", "Masculino", 26, "12345678900", "12345678910");
 
     @FXML
+    void initialize() {
+        choiceGender.getItems().addAll("Macho", "Fêmea");
+        choicePorte.getItems().addAll(Arrays.stream(Porte.values())
+                .map(Enum::toString)
+                .toList());
+        choiceRaca.getItems().addAll(Arrays.stream(Raca.values())
+                .map(Enum::toString)
+                .toList());
+    }
+
+    @FXML
     void cancel(ActionEvent event) throws IOException {
         FXMLLoader loader = controllerUtil.generateLoader("Cliente", "visualizar_cliente.fxml");
-        controllerUtil.changeScene(event, "Visualizar Cliente");
+        controllerUtil.changeScene(loader, event, "Visualizar Cliente");
     }
 
     @FXML

@@ -1,24 +1,15 @@
 package org.DAO.Cliente;
 
+import org.DAO.LoaderDAO;
 import org.model.Cliente;
 import org.model.Pet;
 
 import java.util.ArrayList;
 
 public class ClienteDAO implements ClienteDAOInterface {
-//    String nome;
-//    String sexo;
-//    int idade;
-//    String cpf;
-//    String telefone;
-    ArrayList<Cliente> clients = new ArrayList<Cliente>();
-
-    //TODO: implementar o banco de dados para retirar dados mockados
-    public ClienteDAO() {
-        for (int i = 0; i < 10; i++) {
-            clients.add(new Cliente("nome" + i, "sexo" + i, i, "cpf" + i, "telefone" + i));
-        }
-    }
+    LoaderDAO loaderDAO = new LoaderDAO();
+    ArrayList<Cliente> clients = loaderDAO.loadClientData();
+    
 
     public String cadastrar(Cliente client){
         for(Cliente c : clients){

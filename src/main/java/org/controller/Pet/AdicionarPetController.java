@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.UseCases.GerenciarCliente.EditarCliente;
 import org.Utils.ControllerUtil;
+import org.controller.Cliente.VisualizarClienteController;
 import org.model.Cliente;
 import org.model.Porte;
 import org.model.Raca;
@@ -60,7 +61,10 @@ public class AdicionarPetController {
     @FXML
     void cancel(ActionEvent event) throws IOException {
         FXMLLoader loader = controllerUtil.generateLoader("Cliente", "visualizar_cliente.fxml");
-        controllerUtil.changeScene(loader, event, "Visualizar Cliente");
+        controllerUtil.load(loader);
+        VisualizarClienteController controller = (VisualizarClienteController) controllerUtil.getController();
+        controller.setClient(owner);
+        controllerUtil.changeScene(event, "Visualizar Cliente");
     }
 
     @FXML

@@ -9,24 +9,18 @@ import org.model.Porte;
 import org.model.Raca;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class LoaderDAO {
-    //TODO: remove main and static from methods, then move clients and envUsername outside of loadData
-    public static void main(String[] args) throws Exception {
-        loadData();
-    }
+    ArrayList<Cliente> clients = new ArrayList<>();
+    final String envUsername = System.getenv("USERNAME");
 
-    public static ArrayList<Cliente> loadData() throws IOException, ParseException {
-        ArrayList<Cliente> clients = new ArrayList<>();
-        final String envUsername = System.getenv("USERNAME");
+    final File filePath = new File("C:\\Users\\"+envUsername+"\\Desktop\\data.json");
 
-        final File filePath = new File("C:\\Users\\"+envUsername+"\\Desktop\\data.json");
+    public ArrayList<Cliente> loadClientData() throws IOException, ParseException {
         if(!filePath.exists()){
             System.out.println("File does not exist, creating...");
             if(filePath.createNewFile()){
@@ -59,7 +53,7 @@ public class LoaderDAO {
         return null;
     }
 
-    private static Cliente convertJsonToCliente(JSONObject clientJson){
+    private Cliente convertJsonToCliente(JSONObject clientJson){
         String name = (String) clientJson.get("nome");
         String sex = (String) clientJson.get("sexo");
         Long ageLong = (Long) clientJson.get("idade");
@@ -74,7 +68,7 @@ public class LoaderDAO {
         return client;
     }
 
-    private static Pet convertJsonToPet(JSONObject petJson){
+    private Pet convertJsonToPet(JSONObject petJson){
         String name = (String) petJson.get("nome");
         Long ageLong = (Long) petJson.get("idade");
         int age = ageLong.intValue();

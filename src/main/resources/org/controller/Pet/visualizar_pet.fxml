@@ -35,34 +35,36 @@
             <TextField fx:id="txtfDono" editable="false" layoutX="41.0" layoutY="73.0" promptText="Dono" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="503.0" AnchorPane.topAnchor="73.0" />
             <TextField fx:id="txtfIdade" editable="false" layoutX="532.0" layoutY="24.0" promptText="Idade" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
             <ChoiceBox fx:id="choiceSexo" disable="true" layoutX="303.0" layoutY="24.0" prefWidth="150.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="24.0" />
-            <TextField layoutX="380.0" layoutY="73.0" promptText="Raça" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="241.0" />
             <Label layoutX="331.0" layoutY="77.0" text="Raça" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="414.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="42.0" prefWidth="770.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-         <children>
-            <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#backwards" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" onAction="#edit" text="Editar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <ChoiceBox fx:id="choiceRaca" disable="true" layoutX="380.0" layoutY="73.0" prefWidth="150.0" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="240.0" />
+            <ChoiceBox fx:id="choicePorte" layoutX="621.0" layoutY="73.0" prefWidth="150.0" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="0.0" />
+            <Label layoutX="577.0" layoutY="77.0" text="Porte" />
          </children>
       </AnchorPane>
       <Button fx:id="btnIniciaEdicao" layoutX="673.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleEditionButton" text="Iniciar Edição" textAlignment="RIGHT" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <AnchorPane layoutX="191.0" layoutY="158.0" prefHeight="440.0" prefWidth="395.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="145.0">
          <children>
-            <TableView layoutX="164.0" layoutY="39.0" prefHeight="401.0" prefWidth="226.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="39.0">
+            <TableView fx:id="tableObservacoes" layoutX="164.0" layoutY="39.0" prefHeight="401.0" prefWidth="226.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="39.0">
               <columns>
-                <TableColumn prefWidth="96.0" text="Titulo" />
-                <TableColumn prefWidth="129.0" text="Observação" />
+                <TableColumn fx:id="columnTitulo" prefWidth="96.0" text="Titulo" />
+                <TableColumn fx:id="columnObservacao" prefWidth="129.0" text="Observação" />
               </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="237.0" layoutY="15.0" text="Observações" textAlignment="CENTER" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="15.0" />
             <AnchorPane layoutY="14.0" prefHeight="389.0" prefWidth="168.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
                <children>
-                  <TextField layoutX="10.0" layoutY="14.0" promptText="Titulo da observação." AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" AnchorPane.topAnchor="0.0" />
-                  <TextArea layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="168.0" promptText="Descrição da observação." AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" AnchorPane.topAnchor="26.0" />
-                  <Button layoutX="10.0" layoutY="237.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Adicionar Observação" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" />
-                  <Button layoutX="20.0" layoutY="300.0" mnemonicParsing="false" text="Remover Observação" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" />
+                  <TextField fx:id="txtfTitulo" layoutX="10.0" layoutY="14.0" promptText="Titulo da observação." AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" AnchorPane.topAnchor="0.0" />
+                  <TextArea fx:id="txtaDescricao" layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="168.0" promptText="Descrição da observação." AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" AnchorPane.topAnchor="26.0" />
+                  <Button fx:id="btnAddObservacao" layoutX="10.0" layoutY="237.0" mnemonicParsing="false" onAction="#addObservacao" prefHeight="25.0" prefWidth="148.0" text="Adicionar Observação" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" />
+                  <Button fx:id="btnRemoveObservacao" layoutX="20.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeObservacao" text="Remover Observação" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="9.5" AnchorPane.rightAnchor="9.5" />
                </children>
             </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="42.0" prefWidth="770.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" onAction="#edit" text="Editar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#backwards" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class ClienteDAO implements ClienteDAOInterface {
     LoaderDAO loaderDAO = new LoaderDAO();
     ArrayList<Cliente> clients = loaderDAO.loadClientData();
-    
 
+    //TODO implement loadDAO into all methods which need it
     public String cadastrar(Cliente client){
         for(Cliente c : clients){
             if(c.getCpf().equals(client.getCpf())){
@@ -18,6 +18,11 @@ public class ClienteDAO implements ClienteDAOInterface {
             }
         }
         clients.add(client);
+        try{
+            loaderDAO.writeClientsData(clients);
+        }catch (Exception e){
+            return e.getMessage();
+        }
         return "Cliente cadastrado com sucesso";
     }
 

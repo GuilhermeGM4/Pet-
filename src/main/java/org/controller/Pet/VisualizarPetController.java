@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.UseCases.GerenciarCliente.EditarPet;
@@ -54,7 +51,34 @@ public class VisualizarPetController extends Application{
     private TextField txtfNome;
 
     @FXML
+    private ChoiceBox<String> choiceRaca;
+
+    @FXML
+    private ChoiceBox<String> choicePorte;
+
+    @FXML
     private TextField txtfResponsavel;
+
+    @FXML
+    private TextField txtfTitulo;
+
+    @FXML
+    private TextArea txtaDescricao;
+
+    @FXML
+    private Button btnAddObservacao;
+
+    @FXML
+    private Button btnRemoveObservacao;
+
+    @FXML
+    private TableView tableObservacoes;
+
+    @FXML
+    private TableColumn<String, String> columnObservacao;
+
+    @FXML
+    private TableColumn<String, String> columnTitulo;
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
     private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
@@ -134,6 +158,12 @@ public class VisualizarPetController extends Application{
         changeEditableStatus(false);
         setDefaultValues();
     }
+
+    @FXML
+    void addObservacao(ActionEvent event) {}
+
+    @FXML
+    void removeObservacao(ActionEvent event){}
 
     private void changeEditableStatus(boolean status){
         btnEditar.setDisable(!status);

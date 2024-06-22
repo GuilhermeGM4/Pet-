@@ -1,44 +1,41 @@
 package org.DAO;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.model.Cliente;
-import org.model.Pet;
-import org.model.Porte;
-import org.model.Raca;
+import org.model.*;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class LoaderDAO {
-    ArrayList<Cliente> clients = new ArrayList<>();
-    final String envUsername = System.getenv("USERNAME");
+public class LoaderDAO implements LoaderDAOInterface {
+    private ArrayList<Cliente> clients = new ArrayList<>();
+    private ArrayList<Funcionario> employees = new ArrayList<>();
+    private ArrayList<Servico> services = new ArrayList<>();
+    private ArrayList<Estoque> inventory = new ArrayList<>();
 
-    final File filePath = new File("C:\\Users\\"+envUsername+"\\Desktop\\data.json");
+    private final String envUsername = System.getenv("USERNAME");
+    private final File filePath = new File("C:\\Users\\"+envUsername+"\\Desktop\\data.json");
 
-    public ArrayList<Cliente> loadClientData() throws IOException, ParseException {
-        if(!filePath.exists()){
-            System.out.println("File does not exist, creating...");
-            if(filePath.createNewFile()){
-                System.out.println("File created: " + filePath.getAbsolutePath());
-                return null;
+    public ArrayList<Cliente> loadClientData() {
+        try {
+            if (!filePath.exists()) {
+                System.out.println("File does not exist, creating...");
+                if (filePath.createNewFile()) {
+                    System.out.println("File created: " + filePath.getAbsolutePath());
+                    return new ArrayList<>();
+                }
             }
-        }
-        if(!filePath.canRead()){
-            throw new IllegalStateException("File cannot be read.");
-        }
-        if(!filePath.canWrite()){
-            throw new IllegalStateException("File cannot be written.");
+        } catch (IOException e){
+            System.out.println("Failed to create file.");
+            System.out.println(e.getMessage());
+            return null;
         }
 
-        JSONParser parser = new JSONParser();
         try{
-            Object fileObj = parser.parse(new FileReader(filePath));
-            JSONObject jsonObject = (JSONObject) fileObj;
+            JSONObject jsonObject = (JSONObject) loadFileData();
             ArrayList<JSONObject> clientsJson = (ArrayList<JSONObject>) jsonObject.get("clientes");
             for(JSONObject client : clientsJson){
                 clients.add(convertJsonToCliente(client));
@@ -49,8 +46,115 @@ public class LoaderDAO {
         return clients;
     }
 
-    public String writeData(){
-        return null;
+    @Override
+    public ArrayList<Funcionario> loadEmployeeData() {
+        return new ArrayList<Funcionario>();
+    }
+
+    @Override
+    public ArrayList<Servico> loadServiceData() {
+        return new ArrayList<Servico>();
+    }
+
+    @Override
+    public ArrayList<Estoque> loadInventoryData() {
+        return new ArrayList<Estoque>();
+    }
+
+    @Override
+    public void writeClientsData(ArrayList<Cliente> clients) {
+        this.clients = clients;
+        loadEmployeeData();
+        loadServiceData();
+        loadInventoryData();
+        try {
+            writeData();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Client stored.");
+    }
+
+    @Override
+    public void writeEmployeeData(ArrayList<Funcionario> employees) {
+        this.employees = employees;
+        loadClientData();
+        loadServiceData();
+        loadInventoryData();
+        try {
+            writeData();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Employee stored.");
+    }
+
+    @Override
+    public void writeServiceData(ArrayList<Servico> services) {
+        this.services = services;
+        loadClientData();
+        loadEmployeeData();
+        loadInventoryData();
+        try {
+            writeData();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Service stored.");
+    }
+
+    @Override
+    public void writeInventoryData(ArrayList<Estoque> inventory) {
+        this.inventory = inventory;
+        loadClientData();
+        loadEmployeeData();
+        loadServiceData();
+        try {
+            writeData();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Inventory stored.");
+    }
+
+    private void writeData() throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        if(!filePath.exists()){
+            if(filePath.createNewFile()){
+                System.out.println("File created: " + filePath.getAbsolutePath());
+            }
+        }
+        try{
+            if(clients.isEmpty()) loadClientData();
+            ArrayList<JSONObject> clientsJson = new ArrayList<>();
+            for(Cliente client : clients){
+                clientsJson.add(convertClienteToJsonObject(client));
+            }
+            jsonObject.put("clientes", clientsJson);
+            jsonObject.put("funcionarios", employees);
+            jsonObject.put("servicos", services);
+            jsonObject.put("estoque", inventory);
+            FileWriter writer = new FileWriter(filePath);
+            writer.write(jsonObject.toJSONString());
+            writer.close();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private Object loadFileData() throws IOException, ParseException {
+        if(!filePath.canRead()){
+            throw new IllegalStateException("File cannot be read.");
+        }
+        if(!filePath.canWrite()){
+            throw new IllegalStateException("File cannot be written.");
+        }
+        JSONParser parser = new JSONParser();
+        return parser.parse(new FileReader(filePath));
     }
 
     private Cliente convertJsonToCliente(JSONObject clientJson){
@@ -84,5 +188,31 @@ public class LoaderDAO {
             pet.addObservacao(key, observations.get(key));
         }
         return pet;
+    }
+
+    private JSONObject convertClienteToJsonObject(Cliente cliente) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        jsonObject.put("nome", cliente.getNome());
+        jsonObject.put("sexo", cliente.getSexo());
+        jsonObject.put("idade", cliente.getIdade());
+        jsonObject.put("cpf", cliente.getCpf());
+        jsonObject.put("telefone", cliente.getTelefone());
+        for(Pet pet : cliente.getPets()){
+            jsonArray.add(convertPetToJsonObject(pet));
+        }
+        jsonObject.put("pets", jsonArray);
+        return jsonObject;
+    }
+
+    private JSONObject convertPetToJsonObject(Pet pet) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("nome", pet.getNome());
+        jsonObject.put("idade", pet.getIdade());
+        jsonObject.put("raca", pet.getRaca().toString());
+        jsonObject.put("porte", pet.getPorte().toString());
+        jsonObject.put("responsaveis", pet.getResponsaveis());
+        jsonObject.put("observacoes", pet.getObservacoes());
+        return jsonObject;
     }
 }

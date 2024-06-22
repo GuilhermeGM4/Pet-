@@ -5,7 +5,7 @@ import org.model.Pet;
 
 import java.util.ArrayList;
 
-public class ClienteDAO {
+public class ClienteDAO implements ClienteDAOInterface {
 //    String nome;
 //    String sexo;
 //    int idade;

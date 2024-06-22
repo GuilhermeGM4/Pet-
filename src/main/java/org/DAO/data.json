@@ -1,0 +1,51 @@
+{
+  "clientes": [
+    {
+      "nome": "João",
+      "sexo": "Masculino",
+      "idade": 70,
+      "cpf": "12345678901",
+      "telefone": "12345678900",
+      "pets": [
+        {
+          "nome": "Rex",
+          "idade": 1,
+          "raca": "GOLDEN_RETRIEVER",
+          "porte": "GRANDE",
+          "responsaveis": [],
+          "observacoes": {
+            "hiperativo": "Cachorro se move muito quando está secando."
+          }
+        },
+        {
+          "idade": 7,
+          "nome": "Lindsey",
+          "raca": "VIRA_LATA",
+          "porte": "MEDIO",
+          "responsaveis": [],
+          "observacoes": {}
+        }
+      ]
+    },
+    {
+      "nome": "Maria",
+      "sexo": "Feminino",
+      "idade": 21,
+      "cpf": "12345678902",
+      "telefone": "12345678900",
+      "pets": [
+        {
+          "idade": 4,
+          "nome": "Pitucha",
+          "raca": "POODLE",
+          "porte": "PEQUENO",
+          "responsaveis": ["Irineu"],
+          "observacoes": {
+            "visão": "Cachorro tem visão limitada."
+          }
+        }
+      ]
+    }
+  ],
+  "funcionarios": []
+}

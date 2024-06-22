@@ -17,6 +17,7 @@ import org.model.Porte;
 import org.model.Raca;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class VisualizarPetController extends Application{
@@ -96,8 +97,12 @@ public class VisualizarPetController extends Application{
     @FXML
     public void initialize() {
         choiceSexo.getItems().addAll("Macho", "Fêmea");
+        choiceRaca.getItems().add(pet.getRaca().toString());
+        choicePorte.getItems().addAll(Arrays.stream(Porte.values())
+                .map(Porte::toString)
+                .toList());
         setDefaultValues();
-        owner.cadastrarPet(pet);
+//        owner.cadastrarPet(pet);
     }
 
     @FXML
@@ -196,6 +201,9 @@ public class VisualizarPetController extends Application{
         txtfNome.setText(pet.getNome());
         txtfIdade.setText(String.valueOf(pet.getIdade()));
         txtfDono.setText(owner.getNome());
+
+        choiceRaca.setValue(pet.getRaca().toString());
+        choicePorte.setValue(pet.getPorte().toString());
 
         listResponsaveis.getItems().addAll(pet.getResponsaveis());
     }

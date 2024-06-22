@@ -1,13 +1,17 @@
 package org.controller.Pet;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.UseCases.GerenciarCliente.EditarPet;
 import org.Utils.ControllerUtil;
 import org.controller.Cliente.VisualizarClienteController;
@@ -18,6 +22,8 @@ import org.model.Raca;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class VisualizarPetController extends Application{
@@ -205,6 +211,18 @@ public class VisualizarPetController extends Application{
         choiceRaca.setValue(pet.getRaca().toString());
         choicePorte.setValue(pet.getPorte().toString());
 
+        fillTable();
+
         listResponsaveis.getItems().addAll(pet.getResponsaveis());
+    }
+
+    private void fillTable(){
+        ObservableList<MapDataObject> observableList = FXCollections.observableArrayList();
+        for(Map.Entry<String, String> entry : pet.getObservacoes().entrySet()){
+            observableList.add(new MapDataObject(entry.getKey(), entry.getValue()));
+        }
+        columnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        columnObservacao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        tableObservacoes.setItems(observableList);
     }
 }

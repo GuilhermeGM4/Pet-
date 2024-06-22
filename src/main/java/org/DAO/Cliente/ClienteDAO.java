@@ -41,15 +41,22 @@ public class ClienteDAO implements ClienteDAOInterface {
 
     public String alterar(Cliente editedClient){
         for(Cliente client : clients){
-            if(client.getCpf().equals(editedClient.getCpf())){
-                client.setNome(editedClient.getNome());
-                client.setSexo(editedClient.getSexo());
-                client.setIdade(editedClient.getIdade());
-                client.setTelefone(editedClient.getTelefone());
-                return "Cliente alterado com sucesso";
+            if(client.getCpf().equals(editedClient.getCpf())) {
+                return changeTargetClient(editedClient, client);
             }
         }
         return "Cliente não encontrado";
+    }
+
+    private String changeTargetClient(Cliente editedClient, Cliente client){
+        clients.remove(client);
+        clients.add(editedClient);
+        try{
+            loaderDAO.writeClientsData(clients);
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "Alterado com sucesso.";
     }
 
     public String addPet(Pet newPet, Cliente owner){

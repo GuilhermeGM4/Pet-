@@ -14,14 +14,10 @@ public class Servico {
     private LocalDate data;
     private boolean finalizado;
 
-    public Servico(int id, Cliente cliente, LocalDate data) {
+    public Servico(int id) {
         this.id = id;
-        this.cliente = cliente;
-        this.data = data;
         this.produtos = new HashMap<>();
         this.funcionarios = new ArrayList<>();
-        this.valorTotal = 0;
-        this.finalizado = false;
     }
 
     public void adicionarProduto(Produto produto, int quantidade) {
@@ -42,26 +38,17 @@ public class Servico {
     }
 
     public void adicionarFuncionario(Funcionario funcionario) {
-        if (!funcionarios.contains(funcionario)) {
-            funcionarios.add(funcionario);
-        }
+        this.funcionarios.add(funcionario);
     }
 
     private void calculaTotal() {
-        valorTotal = 0;
-        for (Map.Entry<Produto, Integer> entry : produtos.entrySet()) {
-            valorTotal += entry.getKey().getValor() * entry.getValue();
-        }
+        valorTotal = produtos.entrySet().stream()
+                .map(entry -> entry.getKey().getValor() * entry.getValue())
+                .reduce(0.0f, Float::sum);
     }
 
     public void finalizarServico() {
         finalizado = true;
-    }
-
-    // Getters
-
-    public int getId() {
-        return id;
     }
 
     public Map<Produto, Integer> getProdutos() {

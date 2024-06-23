@@ -18,11 +18,11 @@ public class EditarCliente {
         }
         if(newPhone.length() != 11) return "Telefone deve ter 11 digitos.";
 
-        String name = !newName.equals(client.getNome())? newName: client.getNome();
-        String gender = !newGender.equals(client.getSexo())? newGender: client.getSexo();
-        int age = Integer.parseInt(newAge) != client.getIdade()? Integer.parseInt(newAge): client.getIdade();
-        String phone = !newPhone.equals(client.getTelefone())? newPhone: client.getTelefone();
-        Cliente editedClient = new Cliente(name, gender, age, client.getCpf(), phone);
+        Cliente editedClient = client;
+        editedClient.setNome(newName);
+        editedClient.setSexo(newGender);
+        editedClient.setIdade(Integer.parseInt(newAge));
+        editedClient.setTelefone(newPhone);
         return dao.alterar(editedClient);
     }
 

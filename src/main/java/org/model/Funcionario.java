@@ -3,7 +3,7 @@ package org.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Funcionario extends Pessoa{
+public class Funcionario extends Pessoa {
     private Funcao funcao;
     private List<String> diasTrabalho;
     private List<String> cargaTrabalho;
@@ -51,15 +51,15 @@ public class Funcionario extends Pessoa{
     }
 
     // Métodos de Serviço
-    public void adicionaProduto(Servico servico, Produto produto, int quantidade) {
+    public void adicionarProduto(Servico servico, Produto produto, int quantidade) {
         servico.adicionarProduto(produto, quantidade);
     }
 
-    public void finalizaServico(Servico servico) {
+    public void finalizarServico(Servico servico) {
         servico.finalizarServico();
     }
 
-    public void removeProduto(Servico servico, Produto produto, int quantidade) {
+    public void removerProduto(Servico servico, Produto produto, int quantidade) {
         servico.removerProduto(produto, quantidade);
     }
 
@@ -68,11 +68,11 @@ public class Funcionario extends Pessoa{
     }
 
     // Métodos para Gerenciamento de Estoque
-    public void adicionaItemEstoque(Estoque estoque, Produto produto, int quantidade) {
+    public void adicionarItemEstoque(Estoque estoque, Produto produto, int quantidade) {
         estoque.adicionarProduto(produto, quantidade);
     }
 
-    public void removeItemEstoque(Estoque estoque, Produto produto, int quantidade) {
+    public void removerItemEstoque(Estoque estoque, Produto produto, int quantidade) {
         estoque.removerProduto(produto, quantidade);
     }
 
@@ -80,7 +80,11 @@ public class Funcionario extends Pessoa{
         return estoque.pegarNomeProduto(produto);
     }
 
+    public void reduzirItemEstoque(Estoque estoque, Produto produto, int quantidade) {
+        estoque.reduzEstoque(produto, quantidade);
+    }
 
-
-
+    public void verificarAlertaBaixoEstoque(Estoque estoque, Produto produto, int limite) {
+        estoque.alertaBaixoEstoque(produto, limite);
+    }
 }

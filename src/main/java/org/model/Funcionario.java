@@ -1,14 +1,17 @@
 package org.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Funcionario extends Pessoa{
     private Funcao funcao;
-    private ArrayList<String> diasTrabalho;
-    private ArrayList<String> cargaTrabalho;
+    private List<String> diasTrabalho;
+    private List<String> cargaTrabalho;
 
     public Funcionario(String nome, String sexo, int idade, String cpf, String telefone) {
         super(nome, sexo, idade, cpf, telefone);
+        this.diasTrabalho = new ArrayList<>();
+        this.cargaTrabalho = new ArrayList<>();
     }
 
     public Funcao getFuncao() {
@@ -19,19 +22,19 @@ public class Funcionario extends Pessoa{
         this.funcao = funcao;
     }
 
-    public ArrayList<String> getDiasTrabalho() {
+    public List<String> getDiasTrabalho() {
         return diasTrabalho;
     }
 
-    public void setDiasTrabalho(ArrayList<String> diasTrabalho) {
+    public void setDiasTrabalho(List<String> diasTrabalho) {
         this.diasTrabalho = diasTrabalho;
     }
 
-    public ArrayList<String> getCargaTrabalho() {
+    public List<String> getCargaTrabalho() {
         return cargaTrabalho;
     }
 
-    public void setCargaTrabalho(ArrayList<String> cargaTrabalho) {
+    public void setCargaTrabalho(List<String> cargaTrabalho) {
         this.cargaTrabalho = cargaTrabalho;
     }
 
@@ -39,75 +42,42 @@ public class Funcionario extends Pessoa{
         this.funcao = novaFuncao;
     }
 
-    public void modificaDiasTrabalho(ArrayList<String> novosDiasTrabalho) {
+    public void modificaDiasTrabalho(List<String> novosDiasTrabalho) {
         this.diasTrabalho = new ArrayList<>(novosDiasTrabalho);
     }
 
-    public void modificaCarga(ArrayList<String> novaCargaTrabalho) {
+    public void modificaCarga(List<String> novaCargaTrabalho) {
         this.cargaTrabalho = novaCargaTrabalho;
     }
 
-    //Métodos Externos
-    public void cadastraCliente(Cliente cliente)
-    {
-        cliente.cadastrarPet();
+    // Métodos de Serviço
+    public void adicionaProduto(Servico servico, Produto produto, int quantidade) {
+        servico.adicionarProduto(produto, quantidade);
     }
-    public void adicionaProduto(Produto produto, Servico servico)
-    {
-        servico.adicionaProduto();
-    }
-    public void finalizaServico(Servico servico)
-    {
+
+    public void finalizaServico(Servico servico) {
         servico.finalizarServico();
     }
-    public void removeProduto(Servico servico,Produto produto)
-    {
-        servico.removeProduto();
+
+    public void removeProduto(Servico servico, Produto produto, int quantidade) {
+        servico.removerProduto(produto, quantidade);
     }
-    public float getValorTotal (Servico servico){
+
+    public float getValorTotal(Servico servico) {
         return servico.getValorTotal();
     }
 
-    // Métodos de Gerenciamento para um Gerente
-    public void gerenciarModificacaoFuncao(Funcionario funcionario, Funcao novaFuncao) {
-        if (Funcao.GERENTE == funcionario.getFuncao()) {
-            funcionario.modificaFuncao(novaFuncao);
-        } else {
-            throw new UnsupportedOperationException("Somente gerentes podem modificar a função de outros funcionários.");
-        }
+    // Métodos para Gerenciamento de Estoque
+    public void adicionaItemEstoque(Estoque estoque, Produto produto, int quantidade) {
+        estoque.adicionarProduto(produto, quantidade);
     }
 
-    public void gerenciarModificacaoDiasTrabalho(Funcionario funcionario, ArrayList<String> novosDiasTrabalho) {
-        if (Funcao.GERENTE == funcionario.getFuncao()) {
-            funcionario.modificaDiasTrabalho(novosDiasTrabalho);
-        } else {
-            throw new UnsupportedOperationException("Somente gerentes podem modificar os dias de trabalho de outros funcionários.");
-        }
+    public void removeItemEstoque(Estoque estoque, Produto produto, int quantidade) {
+        estoque.removerProduto(produto, quantidade);
     }
 
-    public void gerenciarModificacaoCarga(Funcionario funcionario, ArrayList<String> novaCargaTrabalho) {
-        if (Funcao.GERENTE == funcionario.getFuncao()) {
-            funcionario.modificaCarga(novaCargaTrabalho);
-        } else {
-            throw new UnsupportedOperationException("Somente gerentes podem modificar a carga de trabalho de outros funcionários.");
-        }
-    }
-
-    //Métodos para Gerenciamento de Estoque
-
-    public void adicionaItemEstoque(Estoque estoque, Produto produto)
-    {
-        estoque.adicionarProduto(produto);
-    }
-
-    public void removeItemEstoque(Estoque estoque, Produto produto)
-    {
-        estoque.removerItem(produto);
-    }
-
-    public void pegarNomeItemEstoque(Estoque estoque, Produto produto)
-    {
-        estoque.pegarNomeProduto(produto);
+    public String pegarNomeItemEstoque(Estoque estoque, Produto produto) {
+        return estoque.pegarNomeProduto(produto);
     }
 
 

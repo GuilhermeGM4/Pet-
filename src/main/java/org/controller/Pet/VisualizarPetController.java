@@ -227,8 +227,8 @@ public class VisualizarPetController extends Application{
         for(Map.Entry<String, String> entry : pet.getObservacoes().entrySet()){
             observableList.add(new MapDataObject(entry.getKey(), entry.getValue()));
         }
-        columnTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-        columnObservacao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        columnTitulo.setCellValueFactory(new PropertyValueFactory<>("key"));
+        columnObservacao.setCellValueFactory(new PropertyValueFactory<>("value"));
         tableObservacoes.setItems(observableList);
     }
 }

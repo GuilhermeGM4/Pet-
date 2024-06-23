@@ -171,7 +171,14 @@ public class VisualizarPetController extends Application{
     }
 
     @FXML
-    void addObservacao(ActionEvent event) {}
+    void addObservacao(ActionEvent event) {
+        owner.adicionaObservacaoPet(txtfTitulo.getText(), txtaDescricao.getText(), pet);
+        EditarPet editor = new EditarPet();
+        editor.setPetAndOwner(pet, owner);
+        String message = editor.addObservacao(txtfTitulo.getText(), txtaDescricao.getText());
+        fillTable();
+        System.out.println(message);
+    }
 
     @FXML
     void removeObservacao(ActionEvent event){}

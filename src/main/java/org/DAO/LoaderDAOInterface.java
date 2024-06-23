@@ -11,10 +11,10 @@ public interface LoaderDAOInterface {
     public ArrayList<Cliente> loadClientData();
     public ArrayList<Funcionario> loadEmployeeData();
     public ArrayList<Servico> loadServiceData();
-    public ArrayList<Estoque> loadInventoryData();
+    public Estoque loadInventoryData();
 
     public void writeClientsData(ArrayList<Cliente> clients);
     public void writeEmployeeData(ArrayList<Funcionario> employees);
     public void writeServiceData(ArrayList<Servico> services);
-    public void writeInventoryData(ArrayList<Estoque> inventory);
+    public void writeInventoryData(Estoque inventory);
 }

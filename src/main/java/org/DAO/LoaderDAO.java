@@ -14,7 +14,7 @@ public class LoaderDAO implements LoaderDAOInterface {
     private ArrayList<Cliente> clients = new ArrayList<>();
     private ArrayList<Funcionario> employees = new ArrayList<>();
     private ArrayList<Servico> services = new ArrayList<>();
-    private ArrayList<Estoque> inventory = new ArrayList<>();
+    private Estoque inventory = new Estoque();
 
     private final String envUsername = System.getenv("USERNAME");
     private final File filePath = new File("C:\\Users\\"+envUsername+"\\Desktop\\data.json");
@@ -48,17 +48,28 @@ public class LoaderDAO implements LoaderDAOInterface {
 
     @Override
     public ArrayList<Funcionario> loadEmployeeData() {
+        //TODO implement loadEmployeeData to transform employee data from the json file into Funcionario objects
         return new ArrayList<Funcionario>();
     }
 
     @Override
     public ArrayList<Servico> loadServiceData() {
+        //TODO implement loadServiceData to transform service data from the json file into Servico objects
         return new ArrayList<Servico>();
     }
 
     @Override
-    public ArrayList<Estoque> loadInventoryData() {
-        return new ArrayList<Estoque>();
+    public Estoque loadInventoryData() {
+        try{
+            JSONObject jsonObject = (JSONObject) loadFileData();
+            ArrayList<JSONObject> inventoryJson = (ArrayList<JSONObject>) jsonObject.get("estoque");
+            for(JSONObject product : inventoryJson){
+                convertJsonToEtoque(product);
+            }
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return inventory;
     }
 
     @Override
@@ -107,7 +118,7 @@ public class LoaderDAO implements LoaderDAOInterface {
     }
 
     @Override
-    public void writeInventoryData(ArrayList<Estoque> inventory) {
+    public void writeInventoryData(Estoque inventory) {
         this.inventory = inventory;
         loadClientData();
         loadEmployeeData();
@@ -188,6 +199,17 @@ public class LoaderDAO implements LoaderDAOInterface {
             pet.addObservacao(key, observations.get(key));
         }
         return pet;
+    }
+
+    private void convertJsonToEtoque(JSONObject inventoryJson){
+        String name = (String) inventoryJson.get("nome");
+        Long quantityLong = (Long) inventoryJson.get("quantidade");
+        int quantity = quantityLong.intValue();
+        Double priceDouble = (Double) inventoryJson.get("preco");
+        float price = priceDouble.floatValue();
+//        Estoque estoque = new Estoque();
+        inventory.adicionarProduto(name, price, quantity);
+//        return estoque;
     }
 
     private JSONObject convertClienteToJsonObject(Cliente cliente) {

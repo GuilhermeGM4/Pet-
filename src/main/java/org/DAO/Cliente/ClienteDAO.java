@@ -83,10 +83,9 @@ public class ClienteDAO implements ClienteDAOInterface {
     public String alterarPet(Pet editedPet, Cliente owner, String petName){
         for(Pet pet : owner.getPets()){
             if(pet.getNome().equals(petName)){
-                pet.setNome(editedPet.getNome());
-                pet.setIdade(editedPet.getIdade());
-                pet.setPorte(editedPet.getPorte());
-                return "Pet alterado com sucesso";
+                owner.getPets().remove(pet);
+                owner.getPets().add(editedPet);
+                return alterar(owner);
             }
         }
         return "Pet não encontrado";

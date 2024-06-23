@@ -73,8 +73,8 @@ public class ClienteDAO implements ClienteDAOInterface {
         for(Pet pet : owner.getPets()){
             if(pet.getNome().equals(petName)){
                 owner.removerPet(pet);
-                alterar(owner);
-                return "Pet removido com sucesso";
+
+                return alterar(owner);
             }
         }
         return "Pet não encontrado";
@@ -98,15 +98,15 @@ public class ClienteDAO implements ClienteDAOInterface {
             }
         }
         owner.adicionaResponsavelPet(guardianName, pet);
-        return "Responsável adicionado.";
+        return alterar(owner);
     }
 
     public String removeGuardian(Pet pet, Cliente owner, String guardianName){
         for(String guardian : pet.getResponsaveis()){
             if(guardian.equals(guardianName)){
                 pet.removeResponsavel(guardianName);
-                alterarPet(pet, owner, pet.getNome());
-                return "Responsável removido.";
+
+                return alterarPet(pet, owner, pet.getNome());
             }
         }
         return "Responsável não encontrado.";

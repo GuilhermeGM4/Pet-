@@ -4,79 +4,64 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Estoque {
-    private Map<Produto, Integer> produtosNoEstoque;
-    private Map<String, Produto> produtosPorNome;
+    private final Map<String, Float> produtos; // Armazena nome e preço do produto
+    private final Map<String, Integer> quantidadeNoEstoque; // Armazena nome e quantidade do produto
 
     public Estoque() {
-        this.produtosNoEstoque = new HashMap<>();
-        this.produtosPorNome = new HashMap<>();
+        this.produtos = new HashMap<>();
+        this.quantidadeNoEstoque = new HashMap<>();
     }
 
     // Adiciona um produto ao estoque com uma quantidade específica
-    public void adicionarProduto(Produto produto, int quantidade) {
-        produtosNoEstoque.put(produto, produtosNoEstoque.getOrDefault(produto, 0) + quantidade);
-        produtosPorNome.put(produto.getNome(), produto);
+    public void adicionarProduto(String nome, float preco, int quantidade) {
+        produtos.put(nome, preco);
+        quantidadeNoEstoque.put(nome, quantidadeNoEstoque.getOrDefault(nome, 0) + quantidade);
     }
 
     // Remove uma quantidade específica de um produto do estoque
-    public void removerProduto(Produto produto, int quantidade) {
-        if (produtosNoEstoque.containsKey(produto)) {
-            int quantidadeAtual = produtosNoEstoque.get(produto);
+    public void removerItem(String nome, int quantidade) {
+        if (quantidadeNoEstoque.containsKey(nome)) {
+            int quantidadeAtual = quantidadeNoEstoque.get(nome);
             if (quantidade >= quantidadeAtual) {
-                produtosNoEstoque.remove(produto);
-                produtosPorNome.remove(produto.getNome());
+                quantidadeNoEstoque.remove(nome);
+                produtos.remove(nome);
             } else {
-                produtosNoEstoque.put(produto, quantidadeAtual - quantidade);
+                quantidadeNoEstoque.put(nome, quantidadeAtual - quantidade);
             }
         }
     }
 
-    // Retorna o nome do produto
-    public String pegarNomeProduto(Produto produto) {
-        return produto.getNome();
+    // Retorna o nome do produto (aqui apenas um exemplo, pois o nome já é a chave)
+    public String pegarNomeProduto(String nome) {
+        return nome;
     }
 
     // Reduz a quantidade de um produto no estoque
-    public void reduzEstoque(Produto produto, int quantidade) {
-        removerProduto(produto, quantidade);
+    public void reduzEstoque(String nome, int quantidade) {
+        removerItem(nome, quantidade);
     }
 
     // Gera um alerta se a quantidade de um produto estiver abaixo de um determinado limite
-    public void alertaBaixoEstoque(Produto produto, int limite) {
-        if (produtosNoEstoque.getOrDefault(produto, 0) < limite) {
-            System.out.println("Alerta: Estoque baixo para o produto " + produto.getNome());
+    public void alertaBaixoEstoque(String nome, int limite) {
+        if (quantidadeNoEstoque.getOrDefault(nome, 0) < limite) {
+            System.out.println("Alerta: Estoque baixo para o produto " + nome);
         }
     }
 
-    // Métodos adicionais para obter informações sobre os produtos
-    public Produto getProdutoPorNome(String nome) {
-        return produtosPorNome.get(nome);
-    }
-
-    public Integer getQuantidadePorProduto(Produto produto) {
-        return produtosNoEstoque.get(produto);
-    }
-
-    public Float getPrecoPorNome(String nome) {
-        Produto produto = produtosPorNome.get(nome);
-        return (produto != null) ? produto.getValor() : null;
-    }
-
     // Getters e Setters
-
-    public Map<Produto, Integer> getProdutosNoEstoque() {
-        return produtosNoEstoque;
+    public Map<String, Float> getProdutos() {
+        return produtos;
     }
 
-    public void setProdutosNoEstoque(Map<Produto, Integer> produtosNoEstoque) {
-        this.produtosNoEstoque = produtosNoEstoque;
+    public Map<String, Integer> getQuantidadeNoEstoque() {
+        return quantidadeNoEstoque;
     }
 
-    public Map<String, Produto> getProdutosPorNome() {
-        return produtosPorNome;
+    public Integer getQtdProduto(String nome) {
+        return quantidadeNoEstoque.get(nome);
     }
 
-    public void setProdutosPorNome(Map<String, Produto> produtosPorNome) {
-        this.produtosPorNome = produtosPorNome;
+    public Float getPrecoProduto(String nome) {
+        return produtos.get(nome);
     }
 }

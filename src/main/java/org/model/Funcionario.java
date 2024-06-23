@@ -68,23 +68,23 @@ public class Funcionario extends Pessoa {
     }
 
     // Métodos para Gerenciamento de Estoque
-    public void adicionarItemEstoque(Estoque estoque, Produto produto, int quantidade) {
-        estoque.adicionarProduto(produto, quantidade);
+    public void adicionarItemEstoque(Estoque estoque, String nome, float preco, int quantidade) {
+        estoque.adicionarProduto(nome, preco, quantidade);
     }
 
-    public void removerItemEstoque(Estoque estoque, Produto produto, int quantidade) {
-        estoque.removerProduto(produto, quantidade);
+    public void removerItemEstoque(Estoque estoque, String nome, int quantidade) {
+        estoque.removerItem(nome, quantidade);
     }
 
-    public String pegarNomeItemEstoque(Estoque estoque, Produto produto) {
-        return estoque.pegarNomeProduto(produto);
+    public String pegarNomeItemEstoque(Estoque estoque, String nome) {
+        return estoque.pegarNomeProduto(nome);
     }
 
-    public void reduzirItemEstoque(Estoque estoque, Produto produto, int quantidade) {
-        estoque.reduzEstoque(produto, quantidade);
+    public void reduzirItemEstoque(Estoque estoque, String nome, int quantidade) {
+        estoque.reduzEstoque(nome, quantidade);
     }
 
-    public void verificarAlertaBaixoEstoque(Estoque estoque, Produto produto, int limite) {
-        estoque.alertaBaixoEstoque(produto, limite);
+    public void verificarAlertaBaixoEstoque(Estoque estoque, String nome, int limite) {
+        estoque.alertaBaixoEstoque(nome, limite);
     }
 }

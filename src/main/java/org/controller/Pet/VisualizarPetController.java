@@ -11,9 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import org.UseCases.GerenciarCliente.EditarPet;
 import org.Utils.ControllerUtil;
+import org.Utils.MapDataObject;
 import org.controller.Cliente.VisualizarClienteController;
 import org.model.Cliente;
 import org.model.Pet;
@@ -22,7 +22,6 @@ import org.model.Raca;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 

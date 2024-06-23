@@ -5,8 +5,8 @@ import org.controller.Cliente.ClienteController;
 
 public class Main {
     public static void main(String[] args) {
-//        ClienteController clienteTest = new ClienteController();
-//        clienteTest.runTest();
+        ClienteController clienteTest = new ClienteController();
+        clienteTest.runTest();
         try {
             LoaderDAO loaderDAO = new LoaderDAO();
             loaderDAO.loadClientData();

@@ -1,7 +1,7 @@
 package org.model;
 
 public enum Funcao {
-    ATENDENDTE,
+    ATENDENTE,
     TOSADOR,
     LAVADOR,
     GERENTE

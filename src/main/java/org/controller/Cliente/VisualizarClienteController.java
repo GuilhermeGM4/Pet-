@@ -1,19 +1,29 @@
 package org.controller.Cliente;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.UseCases.GerenciarCliente.EditarCliente;
+import org.Utils.ControllerUtil;
+import org.controller.Pet.AdicionarPetController;
+import org.controller.Pet.VisualizarPetController;
 import org.model.Cliente;
+import org.model.Pet;
+import org.model.Porte;
+import org.model.Raca;
 
+import java.io.IOException;
 import java.util.Objects;
 
-public class VisualizarClienteController extends Application {
+public class VisualizarClienteController extends Application { //TODO: remover extends e start() para nao deixar a janela inicializavel
     @FXML
     private Button btnEditar;
 
@@ -33,13 +43,13 @@ public class VisualizarClienteController extends Application {
     private ChoiceBox<String> choiceSexo;
 
     @FXML
-    private TableView<?> tablePet;
+    private TableView<Pet> tablePet;
 
     @FXML
-    private TableColumn<?, ?> columnNome;
+    private TableColumn<String, Pet> columnNome;
 
     @FXML
-    private TableColumn<?, ?> columnRaca;
+    private TableColumn<String, Pet> columnRaca;
 
     @FXML
     private Button btnAdicionarPet;
@@ -56,7 +66,10 @@ public class VisualizarClienteController extends Application {
     @FXML
     private TextField txtfTelefone;
 
+    ControllerUtil controllerUtil = new ControllerUtil();
+
     Cliente client = new Cliente("John Doe", "Masculino", 19, "12345678900", "12345678901");
+    ObservableList<Pet> petList = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -69,36 +82,47 @@ public class VisualizarClienteController extends Application {
 
     @FXML
     public void initialize() {
+        //TODO: retirar mock e pegar pets do client
+        Pet pet = new Pet("Rex", 3, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
         choiceSexo.getItems().addAll("Masculino", "Feminino", "Outro");
+        client.cadastrarPet(pet);
+        petList.add(pet);
         setDefaultValues();
     }
 
     @FXML
     void edit(ActionEvent event) {
         EditarCliente editor = new EditarCliente();
+        editor.setClient(client);
         String result = editor.editar(
                 txtfNome.getText(),
                 txtfCpf.getText(),
+                txtfIdade.getText(),
                 choiceSexo.getValue(),
-                Integer.parseInt(txtfIdade.getText()),
                 txtfTelefone.getText()
         );
         //TODO: adicionar um text na janela para mostrar mensagens do sistema e implementar
         if(!result.equals("Cliente alterado com sucesso")){
-            System.out.println(result);
+            setDefaultValues();
         }
+        System.out.println(result);
         btnIniciaEdicao.setText("Iniciar Edição");
         changeEditableStatus(false);
     }
 
     @FXML
-    void addPet(ActionEvent event) {
-        //TODO: implementar
+    void addPet(ActionEvent event) throws IOException {
+        FXMLLoader loader = controllerUtil.generateLoader("Pet", "adicionar_pet.fxml");
+        controllerUtil.load(loader);
+        AdicionarPetController controller = (AdicionarPetController) controllerUtil.getController();
+        controller.setOwner(client);
+        controllerUtil.changeScene(event, "Adicionar Pet");
     }
 
     @FXML
-    void backwards(ActionEvent event) {
-        //TODO: implementar
+    void backwards(ActionEvent event) throws IOException {
+        FXMLLoader loader = controllerUtil.generateLoader("Cliente", "gerenciar_clientes.fxml");
+        controllerUtil.changeScene(loader, event, "Gerenciar Clientes");
     }
 
     @FXML
@@ -116,6 +140,7 @@ public class VisualizarClienteController extends Application {
     private void changeEditableStatus(boolean status){
         btnEditar.setDisable(!status);
         txtfNome.setEditable(status);
+        txtfCpf.setEditable(status);
         txtfIdade.setEditable(status);
         txtfTelefone.setEditable(status);
         choiceSexo.setDisable(!status);
@@ -128,24 +153,57 @@ public class VisualizarClienteController extends Application {
         txtfTelefone.setText(client.getTelefone());
 
         choiceSexo.setValue(client.getSexo());
+
+        populateTable();
     }
 
     @FXML
     void removePet(ActionEvent event) {
         //TODO: implementar
+        Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
+        Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
+                .stream()
+                .findFirst()
+                .orElse(null);
+        if(pet == null){
+            System.out.println("Error getting pet.");
+            return;
+        }
+        client.removerPet(pet);
+        petList.remove(pet);
+        populateTable();
     }
 
     @FXML
-    void viewPet(ActionEvent event) {
-        //TODO: implementar
+    void viewPet(ActionEvent event) throws IOException {
+        //TODO: Corrigir bugs
+        Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
+        Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
+                .stream()
+                .findFirst()
+                .orElse(null);
+        if(pet == null){
+            System.out.println("Error getting pet.");
+            return;
+        }
+
+        FXMLLoader loader = controllerUtil.generateLoader("Pet", "visualizar_pet.fxml");
+        controllerUtil.load(loader);
+        VisualizarPetController petController = (VisualizarPetController) controllerUtil.getController();
+        petController.setPetAndOwner(pet, client);
+        controllerUtil.changeScene(event, "Visualizar Pet");
     }
 
     private void populateTable(){
-        //TODO: implementar
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnRaca.setCellValueFactory(new PropertyValueFactory<>("raca"));
+        tablePet.setItems(petList);
     }
 
-    public void setClient(Cliente c){
-        client = c;
+    public void setClient(Cliente client){
+        this.client = client;
+        petList.clear();
+        petList.addAll(client.getPets());
+        setDefaultValues();
     }
-
 }

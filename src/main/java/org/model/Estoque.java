@@ -4,25 +4,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Estoque {
-    private Map<Produto, Integer> produtos;
+    private Map<Produto, Integer> produtosNoEstoque;
+    private Map<String, Produto> produtosPorNome;
 
     public Estoque() {
-        this.produtos = new HashMap<>();
+        this.produtosNoEstoque = new HashMap<>();
+        this.produtosPorNome = new HashMap<>();
     }
 
     // Adiciona um produto ao estoque com uma quantidade específica
     public void adicionarProduto(Produto produto, int quantidade) {
-        produtos.put(produto, produtos.getOrDefault(produto, 0) + quantidade);
+        produtosNoEstoque.put(produto, produtosNoEstoque.getOrDefault(produto, 0) + quantidade);
+        produtosPorNome.put(produto.getNome(), produto);
     }
 
     // Remove uma quantidade específica de um produto do estoque
     public void removerProduto(Produto produto, int quantidade) {
-        if (produtos.containsKey(produto)) {
-            int quantidadeAtual = produtos.get(produto);
+        if (produtosNoEstoque.containsKey(produto)) {
+            int quantidadeAtual = produtosNoEstoque.get(produto);
             if (quantidade >= quantidadeAtual) {
-                produtos.remove(produto);
+                produtosNoEstoque.remove(produto);
+                produtosPorNome.remove(produto.getNome());
             } else {
-                produtos.put(produto, quantidadeAtual - quantidade);
+                produtosNoEstoque.put(produto, quantidadeAtual - quantidade);
             }
         }
     }
@@ -39,18 +43,40 @@ public class Estoque {
 
     // Gera um alerta se a quantidade de um produto estiver abaixo de um determinado limite
     public void alertaBaixoEstoque(Produto produto, int limite) {
-        if (produtos.getOrDefault(produto, 0) < limite) {
+        if (produtosNoEstoque.getOrDefault(produto, 0) < limite) {
             System.out.println("Alerta: Estoque baixo para o produto " + produto.getNome());
         }
     }
 
-    // Getters e Setters
-
-    public Map<Produto, Integer> getProdutos() {
-        return produtos;
+    // Métodos adicionais para obter informações sobre os produtos
+    public Produto getProdutoPorNome(String nome) {
+        return produtosPorNome.get(nome);
     }
 
-    public void setProdutos(Map<Produto, Integer> produtos) {
-        this.produtos = produtos;
+    public Integer getQuantidadePorProduto(Produto produto) {
+        return produtosNoEstoque.get(produto);
+    }
+
+    public Float getPrecoPorNome(String nome) {
+        Produto produto = produtosPorNome.get(nome);
+        return (produto != null) ? produto.getValor() : null;
+    }
+
+    // Getters e Setters
+
+    public Map<Produto, Integer> getProdutosNoEstoque() {
+        return produtosNoEstoque;
+    }
+
+    public void setProdutosNoEstoque(Map<Produto, Integer> produtosNoEstoque) {
+        this.produtosNoEstoque = produtosNoEstoque;
+    }
+
+    public Map<String, Produto> getProdutosPorNome() {
+        return produtosPorNome;
+    }
+
+    public void setProdutosPorNome(Map<String, Produto> produtosPorNome) {
+        this.produtosPorNome = produtosPorNome;
     }
 }

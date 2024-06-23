@@ -8,6 +8,7 @@ module PetPlus {
     opens org.controller;
     opens org.controller.Cliente;
     opens org.controller.Pet;
+    opens org.controller.Menu;
 
     opens org.model;
     opens org.Utils;
@@ -15,6 +16,7 @@ module PetPlus {
     exports org.controller;
     exports org.controller.Cliente;
     exports org.controller.Pet;
+    exports org.controller.Menu;
 
     exports org.model;
     exports org.Utils;

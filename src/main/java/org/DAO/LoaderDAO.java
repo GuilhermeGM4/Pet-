@@ -141,14 +141,22 @@ public class LoaderDAO implements LoaderDAOInterface {
         }
         try{
             if(clients.isEmpty()) loadClientData();
+
             ArrayList<JSONObject> clientsJson = new ArrayList<>();
             for(Cliente client : clients){
                 clientsJson.add(convertClienteToJsonObject(client));
             }
             jsonObject.put("clientes", clientsJson);
+
             jsonObject.put("funcionarios", employees);
             jsonObject.put("servicos", services);
-            jsonObject.put("estoque", inventory);
+
+            ArrayList<JSONObject> inventoryJson = new ArrayList<>();
+            for(String key : inventory.getProdutos().keySet()){
+                inventoryJson.add(convertEstoqueToJsonObject(key));
+            }
+            jsonObject.put("estoque", inventoryJson);
+
             FileWriter writer = new FileWriter(filePath);
             writer.write(jsonObject.toJSONString());
             writer.close();
@@ -235,6 +243,16 @@ public class LoaderDAO implements LoaderDAOInterface {
         jsonObject.put("porte", pet.getPorte().toString());
         jsonObject.put("responsaveis", pet.getResponsaveis());
         jsonObject.put("observacoes", pet.getObservacoes());
+        return jsonObject;
+    }
+
+    private JSONObject convertEstoqueToJsonObject(String productName) {
+        JSONObject jsonObject = new JSONObject();
+        int productAmt = inventory.getQtdProduto(productName);
+        float productPrice = inventory.getPrecoProduto(productName);
+        jsonObject.put("nome", productName);
+        jsonObject.put("quantidade", productAmt);
+        jsonObject.put("preco", productPrice);
         return jsonObject;
     }
 }

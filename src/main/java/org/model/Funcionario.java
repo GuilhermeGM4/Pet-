@@ -1,20 +1,21 @@
 package org.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Funcionario extends Pessoa {
     private int id;
     private Funcao funcao;
-    private ArrayList<String> diasTrabalho;
-    private ArrayList<String> cargaTrabalho;
+    private List<String> diasTrabalho;
+    private List<String> cargaTrabalho;
 
-    // Construtor com campo id
-    public Funcionario(int id, String nome, String sexo, int idade, String cpf, String telefone) {
+    public Funcionario(String nome, String sexo, int idade, String cpf, String telefone) {
         super(nome, sexo, idade, cpf, telefone);
-        this.id = id;
+        this.id = -1; // Inicializa o ID como -1 (ou outro valor padrão)
+        this.diasTrabalho = new ArrayList<>();
+        this.cargaTrabalho = new ArrayList<>();
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -31,22 +32,21 @@ public class Funcionario extends Pessoa {
         this.funcao = funcao;
     }
 
-    public ArrayList<String> getDiasTrabalho() {
+    public List<String> getDiasTrabalho() {
         return diasTrabalho;
     }
 
-    public void setDiasTrabalho(ArrayList<String> diasTrabalho) {
+    public void setDiasTrabalho(List<String> diasTrabalho) {
         this.diasTrabalho = diasTrabalho;
     }
 
-    public ArrayList<String> getCargaTrabalho() {
+    public List<String> getCargaTrabalho() {
         return cargaTrabalho;
     }
 
-    public void setCargaTrabalho(ArrayList<String> cargaTrabalho) {
+    public void setCargaTrabalho(List<String> cargaTrabalho) {
         this.cargaTrabalho = cargaTrabalho;
     }
-
     public void modificaFuncao(Funcao novaFuncao) {
         this.funcao = novaFuncao;
     }

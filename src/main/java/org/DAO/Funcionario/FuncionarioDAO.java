@@ -7,9 +7,12 @@ import java.util.List;
 
 public class FuncionarioDAO {
     private List<Funcionario> funcionarios = new ArrayList<>();
+    private int proximoId = 1; // Variável para controlar o próximo ID a ser atribuído
 
     public void adicionarFuncionario(Funcionario funcionario) {
+        funcionario.setId(proximoId); // Define o ID do funcionário
         funcionarios.add(funcionario);
+        proximoId++; // Incrementa o próximo ID para o próximo funcionário
     }
 
     public void atualizarFuncionario(Funcionario funcionario) {

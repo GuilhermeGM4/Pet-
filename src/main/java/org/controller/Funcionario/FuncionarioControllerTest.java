@@ -27,7 +27,7 @@ public class FuncionarioControllerTest {
 
         funcionarioController.adicionarFuncionario(gerente1);
 
-        Funcionario funcionario2 = new Funcionario(2, "Maria", "F", 25, "987654321", "8888-8888");
+        Funcionario funcionario2 = new Funcionario("João", "M", 12, "50534535", "13563998" );
         funcionario2.setFuncao(Funcao.ATENDENTE);
         funcionario2.setDiasTrabalho(new ArrayList<>(List.of("Quarta", "Quinta")));
         funcionario2.setCargaTrabalho(new ArrayList<>(List.of("09:00-18:00")));

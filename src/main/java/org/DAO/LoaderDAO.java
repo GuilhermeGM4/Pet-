@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.model.*;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class LoaderDAO implements LoaderDAOInterface {
     private Estoque inventory = new Estoque();
 
     private final String envUsername = System.getenv("USERNAME");
-    private final File filePath = new File("C:\\Users\\"+envUsername+"\\Desktop\\data.json");
+    private final File filePath = new File(System.getProperty("user.home") + "/Desktop/data.json");
 
     public ArrayList<Cliente> loadClientData() {
         try {

@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import org.UseCases.GerenciarCliente.EditarCliente;
 import org.Utils.ControllerUtil;
 import org.controller.Cliente.VisualizarClienteController;
+import org.controller.Popups.WarningController;
 import org.model.Cliente;
 import org.model.Porte;
 import org.model.Raca;
@@ -75,6 +76,7 @@ public class AdicionarPetController {
         String result = editor.addPet(
                 txtNome.getText(),
                 txtIdade.getText(),
+                choiceGender.getSelectionModel().getSelectedItem(),
                 choiceRaca.getSelectionModel().getSelectedItem(),
                 choicePorte.getSelectionModel().getSelectedItem());
 
@@ -83,5 +85,17 @@ public class AdicionarPetController {
 
     public void setOwner(Cliente owner) {
         this.owner = owner;
+    }
+
+    private void showPopup(String message){
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
+            controllerUtil.load(loader);
+            WarningController controller = (WarningController) controllerUtil.getController();
+            controller.setText(message);
+            controllerUtil.openWindow("Aviso", true);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

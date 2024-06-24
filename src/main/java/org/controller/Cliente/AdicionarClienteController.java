@@ -13,11 +13,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.UseCases.GerenciarCliente.CadastrarCliente;
 import org.Utils.ControllerUtil;
+import org.controller.Popups.WarningController;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class AdicionarClienteController extends Application {
+public class AdicionarClienteController {
     @FXML
     private Button btnCadastrar;
 
@@ -44,15 +45,6 @@ public class AdicionarClienteController extends Application {
 
     ControllerUtil controllerUtil = new ControllerUtil();
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adicionar_cliente.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Cadastro de Cliente");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @FXML
     void initialize(){
         choiceGender.getItems().addAll("Masculino", "Feminino", "Outro");
@@ -73,11 +65,25 @@ public class AdicionarClienteController extends Application {
             convertedAge = Integer.parseInt(txtIdade.getText());
         }catch(NumberFormatException e){
             txtMessage.setText("Idade não é um número!");
+            showPopup("Idade não é um número!");
             return;
         }
 
         String result = registration.cadastrar(txtNome.getText(), choiceGender.getValue(),
                 convertedAge, txtCPF.getText(), txtTelefone.getText());
         txtMessage.setText(result);
+        showPopup(result);
+    }
+
+    private void showPopup(String message){
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
+            controllerUtil.load(loader);
+            WarningController controller = (WarningController) controllerUtil.getController();
+            controller.setText(message);
+            controllerUtil.openWindow("Aviso", true);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

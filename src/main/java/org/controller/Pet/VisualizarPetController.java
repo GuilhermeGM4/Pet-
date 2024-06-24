@@ -15,6 +15,7 @@ import org.UseCases.GerenciarCliente.EditarPet;
 import org.Utils.ControllerUtil;
 import org.Utils.MapDataObject;
 import org.controller.Cliente.VisualizarClienteController;
+import org.controller.Popups.WarningController;
 import org.model.Cliente;
 import org.model.Pet;
 import org.model.Porte;
@@ -25,7 +26,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
-public class VisualizarPetController extends Application{
+public class VisualizarPetController {
     @FXML
     private Button btnAdicionar;
 
@@ -87,17 +88,8 @@ public class VisualizarPetController extends Application{
     private TableColumn<String, String> columnTitulo;
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
-    private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
+    private Pet pet = new Pet("Placeholder", 1, "Macho", Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
     private Cliente owner = new Cliente("Johny Doe", "Masculino", 26, "12345678900", "12345678910");
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("visualizar_pet.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Visualizar Pet");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     public void initialize() {
@@ -144,17 +136,16 @@ public class VisualizarPetController extends Application{
                 choiceSexo.getValue(),
                 pet.getPorte()
         );
-        //TODO: adicionar um text na janela para mostrar mensagens do sistema e implementar
         if(!result.equals("Pet alterado com sucesso")){
             setDefaultValues();
         }
-        System.out.println(result);
-        btnIniciaEdicao.setText("Iniciar Edição");
-        changeEditableStatus(false);
         if(result.equals("Pet alterado com sucesso")){
             pet.setNome(txtfNome.getText());
             pet.setIdade(Integer.parseInt(txtfIdade.getText()));
         }
+        btnIniciaEdicao.setText("Iniciar Edição");
+        changeEditableStatus(false);
+        showPopup(result);
     }
 
     @FXML
@@ -177,6 +168,7 @@ public class VisualizarPetController extends Application{
         String message = editor.addObservacao(txtfTitulo.getText(), txtaDescricao.getText());
         fillTable();
         System.out.println(message);
+        showPopup(message);
     }
 
     @FXML
@@ -201,6 +193,7 @@ public class VisualizarPetController extends Application{
         pet.removeResponsavel(guardian);
         listResponsaveis.getItems().remove(guardian);
         System.out.println(response);
+        showPopup(response);
     }
 
     public void setPetAndOwner(Pet pet, Cliente owner) {
@@ -214,6 +207,7 @@ public class VisualizarPetController extends Application{
         txtfIdade.setText(String.valueOf(pet.getIdade()));
         txtfDono.setText(owner.getNome());
 
+        choiceSexo.setValue(pet.getSexo());
         choiceRaca.setValue(pet.getRaca().toString());
         choicePorte.setValue(pet.getPorte().toString());
 
@@ -230,5 +224,17 @@ public class VisualizarPetController extends Application{
         columnTitulo.setCellValueFactory(new PropertyValueFactory<>("key"));
         columnObservacao.setCellValueFactory(new PropertyValueFactory<>("value"));
         tableObservacoes.setItems(observableList);
+    }
+
+    private void showPopup(String message){
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
+            controllerUtil.load(loader);
+            WarningController controller = (WarningController) controllerUtil.getController();
+            controller.setText(message);
+            controllerUtil.openWindow("Aviso", true);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

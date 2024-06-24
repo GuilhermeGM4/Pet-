@@ -10,7 +10,6 @@ public class ClienteDAO implements ClienteDAOInterface {
     LoaderDAO loaderDAO = new LoaderDAO();
     ArrayList<Cliente> clients = loaderDAO.loadClientData();
 
-    //TODO implement loadDAO into all methods which need it
     public String cadastrar(Cliente client){
         for(Cliente c : clients){
             if(c.getCpf().equals(client.getCpf())){

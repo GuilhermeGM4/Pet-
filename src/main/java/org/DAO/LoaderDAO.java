@@ -196,11 +196,12 @@ public class LoaderDAO implements LoaderDAOInterface {
         String name = (String) petJson.get("nome");
         Long ageLong = (Long) petJson.get("idade");
         int age = ageLong.intValue();
+        String gender = (String) petJson.get("sexo");
         String breed = (String) petJson.get("raca");
         String size = (String) petJson.get("porte");
         ArrayList<String> guardians = (ArrayList<String>) petJson.get("responsaveis");
         Map<String, String> observations = (Map<String, String>) petJson.get("observacoes");
-        Pet pet = new Pet(name, age, Raca.valueOf(breed), Porte.valueOf(size));
+        Pet pet = new Pet(name, age, gender, Raca.valueOf(breed), Porte.valueOf(size));
         for(String guardian : guardians){
             pet.addResponsavel(guardian);
         }

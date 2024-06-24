@@ -15,6 +15,7 @@ import org.UseCases.GerenciarCliente.EditarCliente;
 import org.Utils.ControllerUtil;
 import org.controller.Pet.AdicionarPetController;
 import org.controller.Pet.VisualizarPetController;
+import org.controller.Popups.WarningController;
 import org.model.Cliente;
 import org.model.Pet;
 import org.model.Porte;
@@ -23,7 +24,7 @@ import org.model.Raca;
 import java.io.IOException;
 import java.util.Objects;
 
-public class VisualizarClienteController extends Application { //TODO: remover extends e start() para nao deixar a janela inicializavel
+public class VisualizarClienteController {
     @FXML
     private Button btnEditar;
 
@@ -71,22 +72,8 @@ public class VisualizarClienteController extends Application { //TODO: remover e
     Cliente client = new Cliente("John Doe", "Masculino", 19, "12345678900", "12345678901");
     ObservableList<Pet> petList = FXCollections.observableArrayList();
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("visualizar_cliente.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Gerenciar Clientes");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @FXML
     public void initialize() {
-        //TODO: retirar mock e pegar pets do client
-        Pet pet = new Pet("Rex", 3, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
-        choiceSexo.getItems().addAll("Masculino", "Feminino", "Outro");
-        client.cadastrarPet(pet);
-        petList.add(pet);
         setDefaultValues();
     }
 
@@ -101,13 +88,13 @@ public class VisualizarClienteController extends Application { //TODO: remover e
                 choiceSexo.getValue(),
                 txtfTelefone.getText()
         );
-        //TODO: adicionar um text na janela para mostrar mensagens do sistema e implementar
         if(!result.equals("Cliente alterado com sucesso")){
             setDefaultValues();
         }
         System.out.println(result);
         btnIniciaEdicao.setText("Iniciar Edição");
         changeEditableStatus(false);
+        showPopup(result);
     }
 
     @FXML
@@ -159,24 +146,30 @@ public class VisualizarClienteController extends Application { //TODO: remover e
 
     @FXML
     void removePet(ActionEvent event) {
-        //TODO: implementar
         Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
         Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
                 .stream()
                 .findFirst()
                 .orElse(null);
         if(pet == null){
-            System.out.println("Error getting pet.");
+            showPopup("Erro ao adquirir informações do pet.");
             return;
         }
-        client.removerPet(pet);
+//        client.removerPet(pet);
         petList.remove(pet);
+
+        EditarCliente editor = new EditarCliente();
+        editor.setClient(client);
+        String result = editor.removePet(pet.getNome());
+        petList.remove(pet);
+
+        showPopup(result);
+
         populateTable();
     }
 
     @FXML
     void viewPet(ActionEvent event) throws IOException {
-        //TODO: Corrigir bugs
         Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
         Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
                 .stream()
@@ -184,6 +177,7 @@ public class VisualizarClienteController extends Application { //TODO: remover e
                 .orElse(null);
         if(pet == null){
             System.out.println("Error getting pet.");
+            showPopup("Erro ao adquirir informações do pet.");
             return;
         }
 
@@ -205,5 +199,17 @@ public class VisualizarClienteController extends Application { //TODO: remover e
         petList.clear();
         petList.addAll(client.getPets());
         setDefaultValues();
+    }
+
+    private void showPopup(String message){
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
+            controllerUtil.load(loader);
+            WarningController controller = (WarningController) controllerUtil.getController();
+            controller.setText(message);
+            controllerUtil.openWindow("Aviso", true);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

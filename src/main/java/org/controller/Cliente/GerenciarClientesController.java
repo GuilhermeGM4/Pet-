@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class GerenciarClientesController extends Application {
+public class GerenciarClientesController {
     @FXML
     private Button btnBackwards;
 
@@ -47,15 +47,6 @@ public class GerenciarClientesController extends Application {
 
     private final GerenciarCliente gerenciarCliente = new GerenciarCliente();
     private final ControllerUtil controllerUtil = new ControllerUtil();
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("gerenciar_clientes.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Gerenciar Clientes");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     public void initialize() {

@@ -23,7 +23,7 @@ import org.model.Raca;
 import java.io.IOException;
 import java.util.Objects;
 
-public class VisualizarClienteController extends Application { //TODO: remover extends e start() para nao deixar a janela inicializavel
+public class VisualizarClienteController { //TODO: remover extends e start() para nao deixar a janela inicializavel
     @FXML
     private Button btnEditar;
 
@@ -70,15 +70,6 @@ public class VisualizarClienteController extends Application { //TODO: remover e
 
     Cliente client = new Cliente("John Doe", "Masculino", 19, "12345678900", "12345678901");
     ObservableList<Pet> petList = FXCollections.observableArrayList();
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("visualizar_cliente.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Gerenciar Clientes");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     public void initialize() {

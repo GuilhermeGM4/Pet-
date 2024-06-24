@@ -17,7 +17,7 @@ import org.Utils.ControllerUtil;
 import java.io.IOException;
 import java.util.Objects;
 
-public class AdicionarClienteController extends Application {
+public class AdicionarClienteController {
     @FXML
     private Button btnCadastrar;
 
@@ -43,15 +43,6 @@ public class AdicionarClienteController extends Application {
     private TextField txtTelefone;
 
     ControllerUtil controllerUtil = new ControllerUtil();
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adicionar_cliente.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Cadastro de Cliente");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     void initialize(){

@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
-public class VisualizarPetController extends Application{
+public class VisualizarPetController {
     @FXML
     private Button btnAdicionar;
 
@@ -87,17 +87,8 @@ public class VisualizarPetController extends Application{
     private TableColumn<String, String> columnTitulo;
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
-    private Pet pet = new Pet("Placeholder", 1, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
+    private Pet pet = new Pet("Placeholder", 1, "Macho", Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
     private Cliente owner = new Cliente("Johny Doe", "Masculino", 26, "12345678900", "12345678910");
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("visualizar_pet.fxml")));
-        final Scene scene = new Scene(graph, 800, 600);
-        stage.setTitle("Visualizar Pet");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     public void initialize() {
@@ -214,6 +205,7 @@ public class VisualizarPetController extends Application{
         txtfIdade.setText(String.valueOf(pet.getIdade()));
         txtfDono.setText(owner.getNome());
 
+        choiceSexo.setValue(pet.getSexo());
         choiceRaca.setValue(pet.getRaca().toString());
         choicePorte.setValue(pet.getPorte().toString());
 

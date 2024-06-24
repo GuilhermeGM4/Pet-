@@ -8,7 +8,7 @@ import org.model.Raca;
 
 public class EditarPet {
     private ClienteDAO dao = new ClienteDAO();
-    private Pet pet = new Pet("Teste", 2, Raca.BULLDOG, Porte.MEDIO);
+    private Pet pet = new Pet("Teste", 2, "Fêmea", Raca.BULLDOG, Porte.MEDIO);
     private Cliente owner = new Cliente("John Doe", "Masculino", 26, "12345678900", "12345678910");
 
     public String editar(String newName, String newAge, String newGender, Porte newSize){
@@ -19,7 +19,7 @@ public class EditarPet {
 
         int age = Integer.parseInt(newAge);
 
-        Pet editedPet = new Pet(newName, age, pet.getRaca(), newSize);
+        Pet editedPet = new Pet(newName, age, newGender, pet.getRaca(), newSize);
         return dao.alterarPet(editedPet, owner, pet.getNome());
     }
 

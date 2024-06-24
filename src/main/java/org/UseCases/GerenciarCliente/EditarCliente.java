@@ -26,7 +26,7 @@ public class EditarCliente {
         return dao.alterar(editedClient);
     }
 
-    public String addPet(String name, String age, String breed, String size){
+    public String addPet(String name, String age, String gender, String breed, String size){
         if(name.isEmpty() || age.isEmpty() || breed.isEmpty() || size.isEmpty()) return "Nenhum campo deve estar vazio.";
         if(Integer.parseInt(age) < 0) return "Idade inválida";
         if(!(size.equals("PEQUENO") || size.equals("MEDIO") || size.equals("GRANDE"))){
@@ -35,7 +35,7 @@ public class EditarCliente {
 
         Porte petSize = Porte.valueOf(size);
         Raca petBreed = Raca.valueOf(breed);
-        Pet pet = new Pet(name, Integer.parseInt(age), petBreed, petSize);
+        Pet pet = new Pet(name, Integer.parseInt(age), gender, petBreed, petSize);
         String message = dao.addPet(pet, client);
         if(message.equals("Cliente alterado com sucesso.")) return "Pet adicionado com sucesso.";
         return message;

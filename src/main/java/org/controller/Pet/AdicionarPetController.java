@@ -75,6 +75,7 @@ public class AdicionarPetController {
         String result = editor.addPet(
                 txtNome.getText(),
                 txtIdade.getText(),
+                choiceGender.getSelectionModel().getSelectedItem(),
                 choiceRaca.getSelectionModel().getSelectedItem(),
                 choicePorte.getSelectionModel().getSelectedItem());
 

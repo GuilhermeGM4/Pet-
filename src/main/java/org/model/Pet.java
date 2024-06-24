@@ -8,12 +8,13 @@ public class Pet {
     private int id;
     private String nome;
     private int idade;
+    private String sexo;
     private Raca raca;
     private Porte porte;
     private ArrayList<String> responsaveis;
     private Map<String, String> observacoes;
 
-    public Pet(String nome, int idade, Raca raca, Porte porte) {
+    public Pet(String nome, int idade, String sexo, Raca raca, Porte porte) {
         this.nome = nome;
         this.idade = idade;
         this.raca = raca;
@@ -103,6 +104,10 @@ public class Pet {
 
     public Map<String, String> getObservacoes() {
         return observacoes;
+    }
+
+    public String getSexo() {
+        return sexo;
     }
 
 //    public void setObservacoes(String observacoes) {

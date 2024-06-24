@@ -83,7 +83,7 @@ public class VisualizarClienteController extends Application { //TODO: remover e
     @FXML
     public void initialize() {
         //TODO: retirar mock e pegar pets do client
-        Pet pet = new Pet("Rex", 3, Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
+        Pet pet = new Pet("Rex", 3, "Macho", Raca.GOLDEN_RETRIEVER, Porte.GRANDE);
         choiceSexo.getItems().addAll("Masculino", "Feminino", "Outro");
         client.cadastrarPet(pet);
         petList.add(pet);

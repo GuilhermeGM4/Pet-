@@ -93,7 +93,6 @@ public class VisualizarClienteController {
                 choiceSexo.getValue(),
                 txtfTelefone.getText()
         );
-        //TODO: adicionar um text na janela para mostrar mensagens do sistema e implementar
         if(!result.equals("Cliente alterado com sucesso")){
             setDefaultValues();
         }
@@ -152,7 +151,6 @@ public class VisualizarClienteController {
 
     @FXML
     void removePet(ActionEvent event) {
-        //TODO: implementar
         Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
         Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
                 .stream()
@@ -177,7 +175,6 @@ public class VisualizarClienteController {
 
     @FXML
     void viewPet(ActionEvent event) throws IOException {
-        //TODO: Corrigir bugs
         Pet selectedPet = tablePet.getSelectionModel().getSelectedItem();
         Pet pet = petList.filtered(p -> p.getNome().equals(selectedPet.getNome()))
                 .stream()

@@ -5,6 +5,7 @@ module PetPlus {
     requires javafx.graphics;
     requires json.simple;
     requires java.desktop;
+    requires java.sql;
 
     opens org.controller;
     opens org.controller.Cliente;

@@ -15,6 +15,7 @@ import org.UseCases.GerenciarCliente.EditarPet;
 import org.Utils.ControllerUtil;
 import org.Utils.MapDataObject;
 import org.controller.Cliente.VisualizarClienteController;
+import org.controller.Popups.WarningController;
 import org.model.Cliente;
 import org.model.Pet;
 import org.model.Porte;
@@ -139,13 +140,13 @@ public class VisualizarPetController {
         if(!result.equals("Pet alterado com sucesso")){
             setDefaultValues();
         }
-        System.out.println(result);
-        btnIniciaEdicao.setText("Iniciar Edição");
-        changeEditableStatus(false);
         if(result.equals("Pet alterado com sucesso")){
             pet.setNome(txtfNome.getText());
             pet.setIdade(Integer.parseInt(txtfIdade.getText()));
         }
+        btnIniciaEdicao.setText("Iniciar Edição");
+        changeEditableStatus(false);
+        showPopup(result);
     }
 
     @FXML
@@ -222,5 +223,17 @@ public class VisualizarPetController {
         columnTitulo.setCellValueFactory(new PropertyValueFactory<>("key"));
         columnObservacao.setCellValueFactory(new PropertyValueFactory<>("value"));
         tableObservacoes.setItems(observableList);
+    }
+
+    private void showPopup(String message){
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
+            controllerUtil.load(loader);
+            WarningController controller = (WarningController) controllerUtil.getController();
+            controller.setText(result);
+            controllerUtil.openWindow("Aviso", true);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

@@ -169,6 +169,7 @@ public class VisualizarPetController {
         String message = editor.addObservacao(txtfTitulo.getText(), txtaDescricao.getText());
         fillTable();
         System.out.println(message);
+        showPopup(message);
     }
 
     @FXML
@@ -193,6 +194,7 @@ public class VisualizarPetController {
         pet.removeResponsavel(guardian);
         listResponsaveis.getItems().remove(guardian);
         System.out.println(response);
+        showPopup(response);
     }
 
     public void setPetAndOwner(Pet pet, Cliente owner) {
@@ -230,7 +232,7 @@ public class VisualizarPetController {
             FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
             controllerUtil.load(loader);
             WarningController controller = (WarningController) controllerUtil.getController();
-            controller.setText(result);
+            controller.setText(message);
             controllerUtil.openWindow("Aviso", true);
         }catch (IOException e){
             e.printStackTrace();

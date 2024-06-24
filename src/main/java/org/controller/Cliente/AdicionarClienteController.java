@@ -13,6 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.UseCases.GerenciarCliente.CadastrarCliente;
 import org.Utils.ControllerUtil;
+import org.controller.Popups.WarningController;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -64,11 +65,25 @@ public class AdicionarClienteController {
             convertedAge = Integer.parseInt(txtIdade.getText());
         }catch(NumberFormatException e){
             txtMessage.setText("Idade não é um número!");
+            showPopup("Idade não é um número!");
             return;
         }
 
         String result = registration.cadastrar(txtNome.getText(), choiceGender.getValue(),
                 convertedAge, txtCPF.getText(), txtTelefone.getText());
         txtMessage.setText(result);
+        showPopup(result);
+    }
+
+    private void showPopup(String message){
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Popups", "warning_window.fxml");
+            controllerUtil.load(loader);
+            WarningController controller = (WarningController) controllerUtil.getController();
+            controller.setText(message);
+            controllerUtil.openWindow("Aviso", true);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

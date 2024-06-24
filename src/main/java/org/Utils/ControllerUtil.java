@@ -42,9 +42,9 @@ public class ControllerUtil {
 
     //APPLICATION_MODAL define que apenas a nova tela será interagivel no app inteiro enquanto estiver aberta, portanto
     //apenas deixe isAppModel sendo true em avisos e/ou telas de confirmacao.
-    public void openWindow(FXMLLoader loader, String title, boolean isAppModal) throws IOException {
-        Pane graph = loader.load();
-        Scene scene = new Scene(graph);
+    public void openWindow(String title, boolean isAppModal) throws IOException {
+//        Pane graph = loader.load();
+        Scene scene = new Scene(root);
 
         Stage stage = new Stage();
         stage.setScene(scene);

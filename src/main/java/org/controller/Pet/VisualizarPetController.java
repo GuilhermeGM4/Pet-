@@ -136,7 +136,6 @@ public class VisualizarPetController {
                 choiceSexo.getValue(),
                 pet.getPorte()
         );
-        //TODO: adicionar um text na janela para mostrar mensagens do sistema e implementar
         if(!result.equals("Pet alterado com sucesso")){
             setDefaultValues();
         }

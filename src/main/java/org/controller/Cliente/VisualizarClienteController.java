@@ -162,8 +162,16 @@ public class VisualizarClienteController {
             showPopup("Erro ao adquirir informações do pet.");
             return;
         }
-        client.removerPet(pet);
+//        client.removerPet(pet);
         petList.remove(pet);
+
+        EditarCliente editor = new EditarCliente();
+        editor.setClient(client);
+        String result = editor.removePet(pet.getNome());
+        petList.remove(pet);
+
+        showPopup(result);
+
         populateTable();
     }
 

@@ -6,8 +6,8 @@ import java.util.List;
 public class Funcionario extends Pessoa {
     private int id;
     private Funcao funcao;
-    private List<String> diasTrabalho;
-    private List<String> cargaTrabalho;
+    private ArrayList<String> diasTrabalho;
+    private ArrayList<String> cargaTrabalho;
 
     public Funcionario(String nome, String sexo, int idade, String cpf, String telefone, ArrayList<String> diasTrabalho, ArrayList<String> cargaTrabalho) {
         super(nome, sexo, idade, cpf, telefone);
@@ -32,19 +32,19 @@ public class Funcionario extends Pessoa {
         this.funcao = funcao;
     }
 
-    public List<String> getDiasTrabalho() {
+    public ArrayList<String> getDiasTrabalho() {
         return diasTrabalho;
     }
 
-    public void setDiasTrabalho(List<String> diasTrabalho) {
+    public void setDiasTrabalho(ArrayList<String> diasTrabalho) {
         this.diasTrabalho = diasTrabalho;
     }
 
-    public List<String> getCargaTrabalho() {
+    public ArrayList<String> getCargaTrabalho() {
         return cargaTrabalho;
     }
 
-    public void setCargaTrabalho(List<String> cargaTrabalho) {
+    public void setCargaTrabalho(ArrayList<String> cargaTrabalho) {
         this.cargaTrabalho = cargaTrabalho;
     }
     public void modificaFuncao(Funcao novaFuncao) {

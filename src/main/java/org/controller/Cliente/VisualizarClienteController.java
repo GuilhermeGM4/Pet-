@@ -11,20 +11,19 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import org.DAO.Funcionario.FuncionarioDAO;
 import org.UseCases.GerenciarCliente.EditarCliente;
 import org.Utils.ControllerUtil;
 import org.controller.Pet.AdicionarPetController;
 import org.controller.Pet.VisualizarPetController;
 import org.controller.Popups.WarningController;
-import org.model.Cliente;
-import org.model.Pet;
-import org.model.Porte;
-import org.model.Raca;
+import org.model.*;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class VisualizarClienteController {
+    FuncionarioDAO funcionarioDAO;
     @FXML
     private Button btnEditar;
 

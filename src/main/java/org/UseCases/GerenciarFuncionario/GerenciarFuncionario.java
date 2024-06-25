@@ -1,17 +1,15 @@
 package org.UseCases.GerenciarFuncionario;
 
-import org.DAO.Cliente.ClienteDAO;
 import org.DAO.Funcionario.FuncionarioDAO;
-import org.model.Cliente;
 import org.model.Funcionario;
 
 import java.util.ArrayList;
 
-public class ManageFuncionario {
+public class GerenciarFuncionario {
     Funcionario funcionario;
     FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
-    public ArrayList<Funcionario> getAllClients(){
+    public ArrayList<Funcionario> getAllFuncionarios(){
         return funcionarioDAO.getAllFuncionarios();
     }
 

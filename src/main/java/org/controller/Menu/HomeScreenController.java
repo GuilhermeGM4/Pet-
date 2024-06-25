@@ -57,6 +57,12 @@ public class HomeScreenController extends Application {
 
     @FXML
     void gerenciarFuncionarios(ActionEvent event) {
+        try {
+            FXMLLoader loader = controllerUtil.generateLoader("Funcionario", "gerenciar_funcionarios.fxml.fxml");
+            controllerUtil.changeScene(loader, event, "Gerenciar Funcionarios");
+        }catch (Exception e) {
+            e.getMessage();
+        }
 
     }
 

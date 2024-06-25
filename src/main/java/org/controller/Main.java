@@ -6,15 +6,18 @@ import org.controller.Funcionario.FuncionarioControllerTest;
 
 public class Main {
     public static void main(String[] args) {
-        ClienteController clienteTest = new ClienteController();
-        clienteTest.runTest();
+        //ClienteController clienteTest = new ClienteController();
+        //clienteTest.runTest();
 
         try {
             LoaderDAO loaderDAO = new LoaderDAO();
-            loaderDAO.loadClientData();
+            //loaderDAO.loadClientData();
+            loaderDAO.loadFuncionarioData();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+
 
         // Testar FuncionarioController
         FuncionarioControllerTest.main(args);

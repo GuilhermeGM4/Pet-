@@ -16,6 +16,7 @@ public class LoaderDAO implements LoaderDAOInterface {
     private ArrayList<Funcionario> employees = new ArrayList<>();
     private ArrayList<Servico> services = new ArrayList<>();
     private Estoque inventory = new Estoque();
+    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
     private final String envUsername = System.getenv("USERNAME");
     private final File filePath = new File(System.getProperty("user.home") + "/Desktop/data.json");
@@ -71,6 +72,20 @@ public class LoaderDAO implements LoaderDAOInterface {
             System.out.println(e.getMessage());
         }
         return inventory;
+    }
+    @Override
+    public void writeFuncionariosData(ArrayList<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+        loadEmployeeData();
+        loadServiceData();
+        loadInventoryData();
+        try {
+            writeData();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        System.out.println("Client stored.");
     }
 
     @Override
@@ -192,6 +207,40 @@ public class LoaderDAO implements LoaderDAOInterface {
         return client;
     }
 
+    public Funcionario convertJsonToFuncionario(JSONObject funcionarioJson) {
+        String nome = (String) funcionarioJson.get("nome");
+        String sexo = (String) funcionarioJson.get("sexo");
+        Long idadeLong = (Long) funcionarioJson.get("idade");
+        int idade = idadeLong.intValue();
+        String cpf = (String) funcionarioJson.get("cpf");
+        String telefone = (String) funcionarioJson.get("telefone");
+
+        // ID is not provided in JSON
+        Funcionario funcionario = new Funcionario(nome, sexo, idade, cpf, telefone);
+
+        // Setting Funcao
+        String funcaoStr = (String) funcionarioJson.get("funcao");
+        Funcao funcao = Funcao.valueOf(funcaoStr);
+        funcionario.setFuncao(funcao);
+
+        // Setting diasTrabalho
+        JSONArray diasTrabalhoJson = (JSONArray) funcionarioJson.get("dia_trabalho");
+        ArrayList<String> diasTrabalho = new ArrayList<>();
+        for (Object dia : diasTrabalhoJson) {
+            diasTrabalho.add((String) dia);
+        }
+        funcionario.setDiasTrabalho(diasTrabalho);
+
+        // Setting cargaTrabalho
+        JSONArray cargaTrabalhoJson = (JSONArray) funcionarioJson.get("carga_trabalho");
+        ArrayList<String> cargaTrabalho = new ArrayList<>();
+        for (Object carga : cargaTrabalhoJson) {
+            cargaTrabalho.add((String) carga);
+        }
+        funcionario.setCargaTrabalho(cargaTrabalho);
+
+        return funcionario;
+    }
     private Pet convertJsonToPet(JSONObject petJson){
         String name = (String) petJson.get("nome");
         Long ageLong = (Long) petJson.get("idade");

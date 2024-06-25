@@ -9,8 +9,13 @@ import java.util.List;
 
 public class FuncionarioDAO {
     LoaderDAO loaderDAO = new LoaderDAO();
-    private List<Funcionario> funcionarios = new ArrayList<>();
+    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
     private int proximoId = 1; // Variável para controlar o próximo ID a ser atribuído
+
+
+    public ArrayList<Funcionario> getAllFuncionarios() {
+        return funcionarios;
+    }
 
     public void adicionarFuncionario(Funcionario funcionario) {
         funcionario.setId(proximoId); // Define o ID do funcionário
@@ -25,18 +30,25 @@ public class FuncionarioDAO {
             }
         }
         return "Funcionario não encontrado";
-
     }
-private String updateThatFunc(Funcionario editedClient, Funcionario funcionario){
-    funcionarios.remove(funcionario);
-    funcionarios.add(editedClient);
-    try{
-        loaderDAO.writeFuncionariosData(funcionarios);
-    }catch (Exception e){
+public Funcionario getFuncionarioByCPF(String cpf){
+    for (Funcionario funcionario : funcionarios) {
+        if(funcionario.getCpf().equals(cpf)){
+            return funcionario;
+        }
+    }
+    return null;
+    }
+    private String updateThatFunc(Funcionario editedClient, Funcionario funcionario){
+        funcionarios.remove(funcionario);
+        funcionarios.add(editedClient);
+        try{
+            loaderDAO.writeEmployeeData(funcionarios);
+        }catch (Exception e){
         return e.getMessage();
-    }
-    return "Alterado com sucesso.";
-}
+        }
+        return "Alterado com sucesso.";
+        }
     public Funcionario buscarFuncionario(int id) {
         // Implementar lógica para buscar o funcionário pelo ID
         for (Funcionario f : funcionarios) {

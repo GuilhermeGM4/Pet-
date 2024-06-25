@@ -50,8 +50,23 @@ public class LoaderDAO implements LoaderDAOInterface {
 
     @Override
     public ArrayList<Funcionario> loadEmployeeData() {
-        //TODO implement loadEmployeeData to transform employee data from the json file into Funcionario objects
-        return new ArrayList<Funcionario>();
+        if (!filePath.exists()) {
+            System.out.println("File does not exist, creating...");
+            if (filePath.mkdir()) {
+                System.out.println("File created: " + filePath.getAbsolutePath());
+                return new ArrayList<>();
+            }
+        }
+        try {
+            JSONObject jsonObject = (JSONObject) loadFileData();
+            ArrayList<JSONObject> funcionarioJson = (ArrayList<JSONObject>) jsonObject.get("funcionarios");
+            for (JSONObject funcionario : funcionarioJson) {
+                funcionarios.add(convertJsonToFuncionario(funcionario));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return funcionarios;
     }
 
     @Override
@@ -72,20 +87,6 @@ public class LoaderDAO implements LoaderDAOInterface {
             System.out.println(e.getMessage());
         }
         return inventory;
-    }
-    @Override
-    public void writeFuncionariosData(ArrayList<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-        loadEmployeeData();
-        loadServiceData();
-        loadInventoryData();
-        try {
-            writeData();
-        }catch (IOException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-        System.out.println("Client stored.");
     }
 
     @Override

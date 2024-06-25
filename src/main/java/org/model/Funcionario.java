@@ -9,7 +9,7 @@ public class Funcionario extends Pessoa {
     private List<String> diasTrabalho;
     private List<String> cargaTrabalho;
 
-    public Funcionario(String nome, String sexo, int idade, String cpf, String telefone) {
+    public Funcionario(String nome, String sexo, int idade, String cpf, String telefone, ArrayList<String> diasTrabalho, ArrayList<String> cargaTrabalho) {
         super(nome, sexo, idade, cpf, telefone);
         this.id = -1; // Inicializa o ID como -1 (ou outro valor padrão)
         this.diasTrabalho = new ArrayList<>();

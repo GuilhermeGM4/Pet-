@@ -36,7 +36,7 @@ public class FuncionarioControllerTest {
 
         funcionarioController.adicionarFuncionario(gerente1);
 
-     
+
 
         Funcionario funcionario2 = new Funcionario("João", "M", 12, "50534535", "13563998", diasTrabalho,cargaTrabalho );
         funcionario2.setFuncao(Funcao.ATENDENTE);

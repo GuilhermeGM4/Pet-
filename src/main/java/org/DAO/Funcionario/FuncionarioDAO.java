@@ -17,10 +17,29 @@ public class FuncionarioDAO {
         return funcionarios;
     }
 
-    public void adicionarFuncionario(Funcionario funcionario) {
-        funcionario.setId(proximoId); // Define o ID do funcionário
-        funcionarios.add(funcionario);
-        proximoId++;
+    public boolean adicionarFuncionario(Funcionario funcionario) {
+        try {
+            // Verifica se o funcionário já existe pelo CPF (ou outra identificação única)
+            if (existeFuncionario(funcionario.getCpf())) {
+                return false; // Já existe um funcionário com esse CPF
+            }
+
+            // Adiciona o funcionário à lista de funcionários no DAO
+            funcionarios.add(funcionario);
+
+            // Tente escrever os dados no arquivo JSON
+            loaderDAO.writeEmployeeData(funcionarios);
+
+            return true; // Funcionário adicionado com sucesso
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime o stack trace da exceção para debug
+            return false; // Erro ao adicionar funcionário
+        }
+    }
+
+    public boolean existeFuncionario(String cpf) {
+        // Verifica se já existe algum funcionário com o CPF fornecido
+        return funcionarios.stream().anyMatch(f -> f.getCpf().equals(cpf));
     }
 
     public String atualizarFuncionario(Funcionario funcionarioEdited) {
@@ -31,13 +50,31 @@ public class FuncionarioDAO {
         }
         return "Funcionario não encontrado";
     }
-public Funcionario getFuncionarioByCPF(String cpf){
-    for (Funcionario funcionario : funcionarios) {
-        if(funcionario.getCpf().equals(cpf)){
-            return funcionario;
-        }
+    public Funcionario getFuncionarioByCPF(String cpf){
+        for (Funcionario funcionario : funcionarios) {
+            if(funcionario.getCpf().equals(cpf)){
+                return funcionario;
+            }
     }
     return null;
+    }
+    public String cadastrarFuncionario(Funcionario funcionario){
+        try {
+            for(Funcionario f : funcionarios){
+                if(f.getCpf().equals(funcionario.getCpf())){
+                    return "CPF já cadastrado";
+                }
+            }
+            funcionarios.add(funcionario);
+
+            // Tente escrever os dados no arquivo JSON
+            loaderDAO.writeEmployeeData(funcionarios);
+
+            return "Funcionário cadastrado com sucesso!";
+        } catch (Exception e){
+            e.printStackTrace(); // Imprime o stack trace da exceção para debug
+            return "Erro ao cadastrar funcionário: " + e.getMessage();
+        }
     }
     private String updateThatFunc(Funcionario editedClient, Funcionario funcionario){
         funcionarios.remove(funcionario);

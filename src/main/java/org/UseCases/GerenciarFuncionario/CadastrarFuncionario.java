@@ -16,6 +16,11 @@ public class CadastrarFuncionario {
         final String validationCheck = isValid(nome, sexo, idade, cpf, telefone, funcao, diasTrabalho, cargaTrabalho);
         if (!validationCheck.isEmpty()) return validationCheck;
 
+        // Verifica se o CPF já está cadastrado
+        if (funcionarioDAO.existeFuncionario(cpf)) {
+            return "CPF já cadastrado";
+        }
+
         // Lógica de negócio
         Funcionario funcionario = new Funcionario(nome, sexo, idade, cpf, telefone, diasTrabalho, cargaTrabalho);
         funcionario.setFuncao(funcao);
@@ -23,11 +28,13 @@ public class CadastrarFuncionario {
         funcionario.setCargaTrabalho(new ArrayList<>(cargaTrabalho));
 
         // Adicionar funcionário ao DAO
-        funcionarioDAO.adicionarFuncionario(funcionario);
-
-        return "Funcionário cadastrado com sucesso!";
+        boolean sucesso = funcionarioDAO.adicionarFuncionario(funcionario);
+        if (sucesso) {
+            return "Funcionário cadastrado com sucesso!";
+        } else {
+            return "Erro ao cadastrar funcionário";
+        }
     }
-
     private String isValid(String nome, String sexo, int idade, String cpf, String telefone, Funcao funcao,
                            List<String> diasTrabalho, List<String> cargaTrabalho) {
         if (nome.isEmpty() || sexo.isEmpty() || cpf.isEmpty() || telefone.isEmpty()) {

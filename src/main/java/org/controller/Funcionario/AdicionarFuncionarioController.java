@@ -11,30 +11,56 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.model.Funcao;
+import org.DAO.Funcionario.FuncionarioDAO;
 import org.UseCases.GerenciarFuncionario.CadastrarFuncionario;
 import org.Utils.ControllerUtil;
+import org.model.Funcao;
+import org.model.Funcionario;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class AdicionarFuncionarioController extends Application {
 
-    @FXML private Button btnCadastrar;
-    @FXML private Button btnCancel;
-    @FXML private ChoiceBox<String> choiceFuncao;
-    @FXML private ChoiceBox<String> choiceGender;
-    @FXML private TextField txtCPF;
-    @FXML private TextField txtIdade;
-    @FXML private TextField txtCargaTrabalho1;
-    @FXML private TextField txtCargaTrabalho2;
-    @FXML private TextField txtDiaTrabalho1;
-    @FXML private TextField txtDiaTrabalho2;
-    @FXML private TextField txtNome;
-    @FXML private Text txtMessage;
-    @FXML private TextField txtTelefone;
+    @FXML
+    private Button btnCadastrar;
+
+    @FXML
+    private Button btnCancel;
+
+    @FXML
+    private ChoiceBox<String> choiceFuncao;
+
+    @FXML
+    private ChoiceBox<String> choiceGender;
+
+    @FXML
+    private TextField txtCPF;
+
+    @FXML
+    private TextField txtIdade;
+
+    @FXML
+    private TextField txtCargaTrabalho1;
+
+    @FXML
+    private TextField txtCargaTrabalho2;
+
+    @FXML
+    private TextField txtDiaTrabalho1;
+
+    @FXML
+    private TextField txtDiaTrabalho2;
+
+    @FXML
+    private TextField txtNome;
+
+    @FXML
+    private Text txtMessage;
+
+    @FXML
+    private TextField txtTelefone;
 
     private final ControllerUtil controllerUtil = new ControllerUtil();
 
@@ -46,15 +72,15 @@ public class AdicionarFuncionarioController extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     void initialize() {
-        // Inicializa as ChoiceBox apenas se elas não forem nulas
-        if (choiceGender != null && choiceFuncao != null) {
-            choiceGender.getItems().addAll("Masculino", "Feminino", "Outro");
-            choiceFuncao.getItems().addAll("Gerente", "Atendente", "Outra");
-        } else {
-            System.err.println("ChoiceBox 'choiceGender' or 'choiceFuncao' is null.");
-        }
+        initializeChoiceBoxes();
+    }
+
+    private void initializeChoiceBoxes() {
+        choiceGender.getItems().addAll("Masculino", "Feminino", "Outro");
+        choiceFuncao.getItems().addAll("Gerente", "Atendente", "Outra");
     }
 
     @FXML
@@ -65,6 +91,7 @@ public class AdicionarFuncionarioController extends Application {
 
     @FXML
     void register() {
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         String nome = txtNome.getText();
         String cpf = txtCPF.getText();
         String telefone = txtTelefone.getText();
@@ -98,6 +125,12 @@ public class AdicionarFuncionarioController extends Application {
                     Funcao.valueOf(funcao.toUpperCase()), diasTrabalho, cargasTrabalho);
 
             txtMessage.setText(result);
+
+            // Adiciona o funcionário à lista se o cadastro foi bem-sucedido
+            if ("Funcionário cadastrado com sucesso!".equals(result)) {
+                Funcionario novoFuncionario = new Funcionario(nome, gender, idade, cpf, telefone, diasTrabalho, cargasTrabalho);
+                funcionarioDAO.adicionarFuncionario(novoFuncionario);
+            }
         } catch (NumberFormatException e) {
             txtMessage.setText("Idade não é um número válido!");
         }

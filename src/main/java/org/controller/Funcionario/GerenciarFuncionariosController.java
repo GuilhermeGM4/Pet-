@@ -50,6 +50,8 @@ public class GerenciarFuncionariosController {
     public void initialize() {
         ArrayList<Funcionario> funcionarios = gerenciarFuncionario.getAllFuncionarios();
 
+        System.out.println(funcionarios);
+
         funcionariosList.clear();
         funcionariosList.addAll(funcionarios);
 

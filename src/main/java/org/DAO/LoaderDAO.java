@@ -212,12 +212,16 @@ public class LoaderDAO implements LoaderDAOInterface {
         String nome = (String) funcionarioJson.get("nome");
         String sexo = (String) funcionarioJson.get("sexo");
         Long idadeLong = (Long) funcionarioJson.get("idade");
-        int idade = idadeLong.intValue();
+        int idade = idadeLong != null ? idadeLong.intValue() : 0; // Tratamento para idade nula
         String cpf = (String) funcionarioJson.get("cpf");
         String telefone = (String) funcionarioJson.get("telefone");
+        JSONArray cargaTrabalhoJson = (JSONArray) funcionarioJson.get("carga_trabalho");
+        ArrayList<String> cargaTrabalho = new ArrayList<>();
+        JSONArray diasTrabalhoJson = (JSONArray) funcionarioJson.get("dia_trabalho");
+        ArrayList<String> diasTrabalho = new ArrayList<>();
 
-        // ID is not provided in JSON
-        Funcionario funcionario = new Funcionario(nome, sexo, idade, cpf, telefone);
+        // Criando o funcionário com os dados básicos
+        Funcionario funcionario = new Funcionario(nome, sexo, idade, cpf, telefone, diasTrabalho, cargaTrabalho);
 
         // Setting Funcao
         String funcaoStr = (String) funcionarioJson.get("funcao");
@@ -225,16 +229,14 @@ public class LoaderDAO implements LoaderDAOInterface {
         funcionario.setFuncao(funcao);
 
         // Setting diasTrabalho
-        JSONArray diasTrabalhoJson = (JSONArray) funcionarioJson.get("dia_trabalho");
-        ArrayList<String> diasTrabalho = new ArrayList<>();
+
         for (Object dia : diasTrabalhoJson) {
             diasTrabalho.add((String) dia);
         }
         funcionario.setDiasTrabalho(diasTrabalho);
 
         // Setting cargaTrabalho
-        JSONArray cargaTrabalhoJson = (JSONArray) funcionarioJson.get("carga_trabalho");
-        ArrayList<String> cargaTrabalho = new ArrayList<>();
+
         for (Object carga : cargaTrabalhoJson) {
             cargaTrabalho.add((String) carga);
         }

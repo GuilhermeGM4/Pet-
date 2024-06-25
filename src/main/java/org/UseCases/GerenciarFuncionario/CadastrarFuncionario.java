@@ -11,13 +11,13 @@ public class CadastrarFuncionario {
     private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 
     public String cadastrar(String nome, String sexo, int idade, String cpf, String telefone, Funcao funcao,
-                            List<String> diasTrabalho, List<String> cargaTrabalho) {
+                            ArrayList<String> diasTrabalho, ArrayList<String> cargaTrabalho) {
         // Verifica se todos os campos são válidos
         final String validationCheck = isValid(nome, sexo, idade, cpf, telefone, funcao, diasTrabalho, cargaTrabalho);
         if (!validationCheck.isEmpty()) return validationCheck;
 
         // Lógica de negócio
-        Funcionario funcionario = new Funcionario(nome, sexo, idade, cpf, telefone);
+        Funcionario funcionario = new Funcionario(nome, sexo, idade, cpf, telefone, diasTrabalho, cargaTrabalho);
         funcionario.setFuncao(funcao);
         funcionario.setDiasTrabalho(new ArrayList<>(diasTrabalho));
         funcionario.setCargaTrabalho(new ArrayList<>(cargaTrabalho));

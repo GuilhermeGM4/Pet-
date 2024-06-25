@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import org.DAO.Funcionario.FuncionarioDAO;
 import org.UseCases.GerenciarFuncionario.EditarFuncionario;
 import org.Utils.ControllerUtil;
 import org.controller.Popups.WarningController;
@@ -14,6 +15,7 @@ import org.model.Funcao;
 import java.io.IOException;
 
 public class VisualizarFuncionarioController {
+    FuncionarioDAO funcionarioDAO;
     @FXML
     private Button btnEditar;
 
@@ -55,7 +57,7 @@ public class VisualizarFuncionarioController {
 
     @FXML
     void edit(ActionEvent event) {
-        EditarFuncionario editor = new EditarFuncionario();
+        EditarFuncionario editor = new EditarFuncionario(funcionarioDAO);
         String result = editor.editarFuncionario(
                 funcionario.getId(),
                 txtfNome.getText(),

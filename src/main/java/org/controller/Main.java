@@ -1,7 +1,6 @@
 package org.controller;
 
 import org.DAO.LoaderDAO;
-import org.controller.Cliente.ClienteController;
 import org.controller.Funcionario.FuncionarioControllerTest;
 
 public class Main {
@@ -12,7 +11,7 @@ public class Main {
         try {
             LoaderDAO loaderDAO = new LoaderDAO();
             //loaderDAO.loadClientData();
-            loaderDAO.loadFuncionarioData();
+            loaderDAO.loadEmployeeData();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

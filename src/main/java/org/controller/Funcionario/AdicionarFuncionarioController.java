@@ -85,11 +85,11 @@ public class AdicionarFuncionarioController extends Application {
 
         try {
             int idade = Integer.parseInt(idadeStr);
-            List<String> diasTrabalho = new ArrayList<>();
+            ArrayList<String> diasTrabalho = new ArrayList<>();
             diasTrabalho.add(diaTrabalho1);
             diasTrabalho.add(diaTrabalho2);
 
-            List<String> cargasTrabalho = new ArrayList<>();
+            ArrayList<String> cargasTrabalho = new ArrayList<>();
             cargasTrabalho.add(cargaTrabalho1);
             cargasTrabalho.add(cargaTrabalho2);
 

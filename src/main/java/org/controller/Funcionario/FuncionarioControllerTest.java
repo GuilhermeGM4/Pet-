@@ -20,14 +20,25 @@ public class FuncionarioControllerTest {
         // Instanciar o controlador
         FuncionarioController funcionarioController = new FuncionarioController(funcionarioDAO);
 
+        ArrayList<String> diasTrabalho = new ArrayList<>();
+        diasTrabalho.add("SEGUNDA");
+        diasTrabalho.add("TERÇA");
+        // Adicione outros dias de trabalho conforme necessário
+
+        // Definindo a carga de trabalho
+        ArrayList<String> cargaTrabalho = new ArrayList<>();
+        cargaTrabalho.add("2 GRANDE");
+        cargaTrabalho.add("1 MÉDIO");
         // Adicionar funcionários
-        Gerente gerente1 = new Gerente(1, "João", "M", 30, "123456789", "9999-9999");
+        Gerente gerente1 = new Gerente(1, "João", "M", 30, "123456789", "9999-9999", diasTrabalho, cargaTrabalho);
         gerente1.setDiasTrabalho(new ArrayList<>(List.of("Segunda", "Terça")));
         gerente1.setCargaTrabalho(new ArrayList<>(List.of("08:00-17:00")));
 
         funcionarioController.adicionarFuncionario(gerente1);
 
-        Funcionario funcionario2 = new Funcionario("João", "M", 12, "50534535", "13563998" );
+     
+
+        Funcionario funcionario2 = new Funcionario("João", "M", 12, "50534535", "13563998", diasTrabalho,cargaTrabalho );
         funcionario2.setFuncao(Funcao.ATENDENTE);
         funcionario2.setDiasTrabalho(new ArrayList<>(List.of("Quarta", "Quinta")));
         funcionario2.setCargaTrabalho(new ArrayList<>(List.of("09:00-18:00")));
